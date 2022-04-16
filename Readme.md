@@ -12,5 +12,4 @@
 8. 플러그인의 도입
 10. npm 패키지 사용
 
-✨ 참고 - 생활코딩 Webpack 강의
-https://www.youtube.com/playlist?list=PLuHgQVnccGMChcT9IKopFDoAIoTA-03DA
+✨**참고** : <a href = "https://www.youtube.com/playlist?list=PLuHgQVnccGMChcT9IKopFDoAIoTA-03DA">생활코딩 Webpack 강의</a>

@@ -6,9 +6,7 @@ async와 defer는 **브라우저가 페이지를 로딩하는 동안
 스크립트를 별도의 스레드에서 불러오므로 </br>
 스크립트를 가져오는 동안에는 페이지 로딩이 중단되지 않는다.**
 
-
-✨ 참고 이미지
-https://developer.mozilla.org/ko/docs/Learn/JavaScript/First_steps/What_is_JavaScript
+<img src = "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript/async-defer.jpg">
 
 # async 
 스크립트를 가져오는 동안 페이지 로딩을 중단하지 않으며,</br> 스크립트 다운로드가 끝나는 즉시 스크립트를 실행한다. </br>
