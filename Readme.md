@@ -1,3 +1,6 @@
+# JavaScript
+* <a href="https://github.com/minbok-1998/Study/blob/main/JavaScript/async%EC%99%80%20defer.md">async와 defer</a>
+
 # Webpack
 
 2. 웹팩이전의 세계와 모듈의 개념
