@@ -1,0 +1,7 @@
+# DevServer
+- live reload
+- hot module replacement
+
+# code splitting
+
+# Lazy loading
