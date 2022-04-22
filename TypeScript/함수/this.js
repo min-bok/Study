@@ -1,17 +1,42 @@
 // this와 화살표 함수 (this and arrow functions)
-var deck = {
-    suits: ["hearts", "spades", "clubs", "diamonds"],
-    cards: Array(52),
-    createCardPicker: function () {
-        var _this = this;
-        // NOTE: 아랫줄은 화살표 함수로써, 'this'를 이곳에서 캡처할 수 있도록 합니다
-        return function () {
-            var pickedCard = Math.floor(Math.random() * 52);
-            var pickedSuit = Math.floor(pickedCard / 20);
-            return { suit: _this.suits[pickedSuit], card: pickedCard % 20 };
+// let deck = {
+//     suits: ["hearts", "spades", "clubs", "diamonds"],
+//     cards: Array(52),
+//     createCardPicker: function() {
+//         // NOTE: 아랫줄은 화살표 함수로써, 'this'를 이곳에서 캡처할 수 있도록 합니다
+//         return () => {
+//             let pickedCard = Math.floor(Math.random() * 52);
+//             let pickedSuit = Math.floor(pickedCard / 13);
+//             return {suit: this.suits[pickedSuit], card: pickedCard % 13};
+//         }
+//     }
+// }
+// let cardPicker = deck.createCardPicker();
+// let pickedCard = cardPicker();
+// alert("card: " + pickedCard.card + " of " + pickedCard.suit);
+// -------------------------------------------------------------
+// 오버로드 (Overloads)
+var suits = ["hearts", "spades", "clubs", "diamonds"];
+function pickCard(x) {
+    if (typeof x == "object") {
+        var pickedCard = Math.floor(Math.random() * x.length);
+        return pickedCard;
+    }
+    else if (typeof x == "number") {
+        var pickedSuit = Math.floor(x / 13);
+        return {
+            suit: suits[pickedSuit],
+            card: x % 13
         };
     }
-};
-var cardPicker = deck.createCardPicker();
-var pickedCard = cardPicker();
-alert("card: " + pickedCard.card + " of " + pickedCard.suit);
+}
+var myDeck = [{ suit: "Hodu", card: 800 }, { suit: "Minbok", card: 250 }, { suit: "Yeong", card: 400 }];
+var pickedCard1 = myDeck[pickCard(myDeck)];
+alert("card: " + pickedCard1.card + " of " + pickedCard1.suit); // 400 of yeong
+var pickedCard2 = pickCard(15); // card: 2 of spades
+alert("card: " + pickedCard2.card + " of " + pickedCard2.suit);
+// 위 예제에서 function pickCard(x): any는 오버로드 목록에 해당되지 않음
+// 그래서 두 가지 오버로드만을 가짐: 객체를 받는것 하나와 숫자를 받는 것 하나.
+// function pickCard(x: {suit: string; card: number; }[]): number;
+// function pickCard(x: number): {suit: string; card: number; };
+// 위 두 문장이 없으면 pickCard();의 매개변수가 객체나 숫자가 아니더라도 오류가 발생하지 않음
