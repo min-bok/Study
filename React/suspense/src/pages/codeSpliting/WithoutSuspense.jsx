@@ -11,7 +11,7 @@ export default function WithoutSuspense() {
   return (
     <>
       <h3>코드 스플리팅 테스트</h3>
-      <h1>{code}</h1>
+      {code}
       <button onClick={handleClick}>Click Me!</button>
     </>
   );
