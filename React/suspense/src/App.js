@@ -1,28 +1,42 @@
+import { Suspense, lazy, useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
-// import WithoutSuspense from "./pages/loading/WithoutSuspense";
-import UseSuspense from "./pages/loading/UseSuspense";
-import { Suspense, useEffect } from "react";
+import WithoutSuspense from "./pages/loading/WithoutSuspense";
+const UseSuspense = lazy(() => import("./pages/loading/UseSuspense"));
 
 function App() {
+  const [data, setData] = useState(null);
+  const [display, setDisplay] = useState(true);
+
   useEffect(() => {
+    const fetchData = async (id) => {
+      try {
+        const result = await axios.get(
+          `https://jsonplaceholder.typicode.com/users/${id}`
+        );
+        setData(result.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     fetchData(10);
   }, []);
 
-  const fetchData = async (id) => {
-    try {
-      const result = await axios.get(
-        `https://jsonplaceholder.typicode.com/users/${id}`
-      );
-      return result.data;
-    } catch (err) {
-      console.error(err);
-    }
+  const handleDisplay = async () => {
+    setDisplay(!display);
   };
+
   return (
-    <Suspense fallback={<h2>Loading...</h2>}>
-      <UseSuspense data={fetchData(10)} />
-    </Suspense>
+    <>
+      <WithoutSuspense />
+      {/* {display ? null : (
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <UseSuspense data={data} />
+        </Suspense>
+      )}
+      <button onClick={handleDisplay}>사용자 정보 불러오기</button> */}
+    </>
   );
 }
 
