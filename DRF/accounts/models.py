@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from .managers import UserManager
 
 class CustomUser(AbstractUser):
+    username = None
     email = models.EmailField(_('email'), max_length=255, unique=True)
 
     USERNAME_FIELD = "email" # 로그인에 사용될 필드를 email로 지정

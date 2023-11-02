@@ -37,7 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts'
+    # apps
+    'accounts',
+    # packages
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',  # Django Allauth의 미들웨어 추가
 ]
 
 ROOT_URLCONF = 'myapp.urls'
@@ -124,3 +135,17 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# dj-rest-auth
+REST_USE_JWT = True # JWT 사용 여부
+JWT_AUTH_COOKIE = 'my-app-auth' # 호출할 Cookie Key 값
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token' # Refresh Token Cookie Key 값
+
+# django-allauth
+SITE_ID = 1 # 해당 도메인 id
+ACCOUNT_UNIQUE_EMAIL = True # User email unique 사용 여부
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None # 사용자 이름 필드 지정
+ACCOUNT_USERNAME_REQUIRED = False # User username 필수 여부
+ACCOUNT_EMAIL_REQUIRED = True # User email 필수 여부
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # 로그인 인증 수단
+ACCOUNT_EMAIL_VERIFICATION = 'none' # email 인증 필수 여부
