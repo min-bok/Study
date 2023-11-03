@@ -2,16 +2,21 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
-from .managers import UserManager
+from .managers import CustomUserManager
+
 
 class CustomUser(AbstractUser):
     username = None
-    email = models.EmailField(_('email'), max_length=255, unique=True)
+    email = models.EmailField(_('email address'), unique=True)
 
-    USERNAME_FIELD = "email" # 로그인에 사용될 필드를 email로 지정
-    REQUIRED_FIELDS = [] # 필수로 받고싶은 필드값. USERNAME_FIELD와 password는 따로 명시하지않아도 기본적으로 요구됨
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
-    objects = UserManager()
+    objects = CustomUserManager()
+
+    spouse_name = models.CharField(blank=True, max_length=100)
+    date_of_birth = models.DateField(blank=True, null=True)
+    
 
     def __str__(self):
         return self.email

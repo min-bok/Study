@@ -1,6 +1,7 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from .views import RegistrationView, LoginView
 
 urlpatterns = [
-    path('join/', include("dj_rest_auth.registration.urls")),
+    path('register/', RegistrationView.as_view(), name='register'),
+    path('login/', LoginView.as_view(), name='login'),
 ]
