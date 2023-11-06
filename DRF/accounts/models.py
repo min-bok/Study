@@ -4,6 +4,10 @@ from django.utils.translation import gettext_lazy as _
 
 from .managers import CustomUserManager
 
+GENDER_CHOICES = (
+    ('male', '남자'),
+    ('female', '여자'),
+)
 
 class CustomUser(AbstractUser):
     username = None
@@ -14,7 +18,7 @@ class CustomUser(AbstractUser):
 
     objects = CustomUserManager()
 
-    spouse_name = models.CharField(blank=True, max_length=100)
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
     
 
