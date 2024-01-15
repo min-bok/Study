@@ -165,38 +165,38 @@
 - 메서드는 얼마든지 재정의 되어질 수 있음
 """
 
-class Car(object):
-    kinds = []
-    MaxSpeed = 300
-    MaxPeoeple = 5
+# class Car(object):
+#     kinds = []
+#     MaxSpeed = 300
+#     MaxPeoeple = 5
 
-    def __init__(self, 이름):
-        self.name = 이름
-        self.kinds.append(이름)
+#     def __init__(self, 이름):
+#         self.name = 이름
+#         self.kinds.append(이름)
 
-    def __add__(self, add):
-        return f"hello {add}" # add: 더 할 요소
+#     def __add__(self, add):
+#         return f"hello {add}" # add: 더 할 요소
     
-    def __str__(self): # 자신의 이름을 알려주는 매직메서드
-        return self.name
+#     def __str__(self): # 자신의 이름을 알려주는 매직메서드
+#         return self.name
 
-    def move(self, x):
-        print(self.name, x, '의 스피드로 움직이고 있습니다.')
-        print(self.kinds)
-        self.stop()
+#     def move(self, x):
+#         print(self.name, x, '의 스피드로 움직이고 있습니다.')
+#         print(self.kinds)
+#         self.stop()
 
-    def stop(self):
-        print('멈췄습니다.')
+#     def stop(self):
+#         print('멈췄습니다.')
 
-    @staticmethod #decorator
-    def 스피드배속(현재스피드, 배속할스피드):
-        print(f'현재 {현재스피드 * 배속할스피드}의 스피드로 달리고 있습니다.')
+#     @staticmethod #decorator
+#     def 스피드배속(현재스피드, 배속할스피드):
+#         print(f'현재 {현재스피드 * 배속할스피드}의 스피드로 달리고 있습니다.')
 
-k5 = Car('케이파이브')
-k3 = Car('케이쓰리')
-print(k5 + k3) # hello 케이쓰리
-print(k5) # 케이파이브
-print(Car.스피드배속(100, 2)) # 현재 200의 스피드로 달리고 있습니다.
+# k5 = Car('케이파이브')
+# k3 = Car('케이쓰리')
+# print(k5 + k3) # hello 케이쓰리
+# print(k5) # 케이파이브
+# print(Car.스피드배속(100, 2)) # 현재 200의 스피드로 달리고 있습니다.
 
 """
 @staticmethod 데코레이터
@@ -204,9 +204,178 @@ print(Car.스피드배속(100, 2)) # 현재 200의 스피드로 달리고 있습
 """
 
 # 4. 상속
+"""
+- 상속하는 클래스를 부모 클래스(슈퍼 클래스), 상속받는 클래스를 자식 클래스(상속 클래스)라고 함
+- 자식 클래스는 부모 클래스가 사용하던 데이터와 기능들을 모두 사용할 수 있음
+- 또한 부모 클래스의 변수를 새로 덮어씌워 자기 자신만의 클래스 변수를 새로 정의할 수 있음
+"""
+# class Car(object):
+#     maxSpeed = 300
+#     maxPeple = 5
+
+#     def move(self, x):
+#         print(f"{x}의 스피드로 달리고 있습니다.")
+
+#     def stop(self):
+#         print("멈췄습니다.")
+
+# class HybridCar(Car):
+#     battery = 1000
+#     batteryKM = 300
+
+# class ElectricCar(HybridCar):
+#     battery = 2000
+#     batteryKM = 600
+
+# k5 = HybridCar()
+# electricCarK5 = ElectricCar()
+
+# print(k5.maxSpeed) # 300
+# print(electricCarK5.maxSpeed) # 300
+# print(electricCarK5.battery) # 2000
 
 # 5. 메서드 오버라이딩
+"""
+- 메서드 오버라이딩: 같은 이름이나 함수를 덮어쓰는 것
+- 메서드 오버로딩: 클래스 내에서 같은 이름의 메서드를 중복선언 하는 것
+- python은 메서드 오버로딩을 허용하지않음
+"""
+
+# class Car(object):
+#     maxSpeed = 300
+#     maxPeople = 5
+
+#     def move(self, x):
+#         print(x, '의 스피드로 달리고 있습니다.')
+
+#     def stop(self):
+#         print('멈췄습니다.')
+
+# class HybridCar(Car):
+#     battery = 1000
+#     batteryKM = 300
+
+# class ElectricCar(HybridCar):
+#     battery = 2000
+#     batteryKM = 600
+
+#     def move(self, x):
+#         print(self.batteryKM, '만큼 달릴 수 있습니다.')
+#         print(x, '스피드로 달리고 있습니다.')
+
+
+# k5 = HybridCar()
+# electricCarK5 = ElectricCar()
+# print(k5.maxSpeed) # 300
+# print(electricCarK5.maxSpeed) # 300
+# print(electricCarK5.battery) # 2000
+# electricCarK5.move(10) # 600 만큼 달릴 수 있습니다. 10 스피드로 달리고 있습니다.
 
 # 6. 다중 상속
+# class Car(object):
+#     maxSpeed = 300
+#     maxPeople = 5
+
+#     def move(self, x):
+#         print(x, '의 스피드로 움직이고 있습니다.')
+
+#     def stop(self):
+#         print('멈췄습니다.')
+
+# class HybridCar(Car):
+#     battery = 1000
+#     batteryKM = 300
+
+# class ElectricCar(Car):
+#     battery = 2000
+#     batteryKM = 600
+#     def move(self, x):
+#         print(self.batteryKM, '만큼 달릴 수 있습니다.')
+#         print(x, '스피드로 달리고 있습니다.')
+        
+# class HybridElectricCar(HybridCar, ElectricCar):
+#     pass
+
+# k5 = HybridElectricCar()
+# print(k5.battery) # 1000
+
+# class HybridElectricCar(ElectricCar,HybridCar):
+#     pass 
+
+# k5 = HybridElectricCar()
+# print(k5.battery) # 2000
+
+"""
+MRO(Method Resolution Order)
+- HybridElectricCar의 MRO를 출력해보면 상속의 우선 순위를 알 수 있음
+"""
+# print(HybridElectricCar.mro())
+# [<class '__main__.HybridElectricCar'>, <class '__main__.ElectricCar'>, <class '__main__.HybridCar'>, <class '__main__.Car'>, <class 'object'>]
+
+# class Car(object):
+# 	maxSpeed = 300
+# 	maxPeople = 5
+	
+# 	def __init__(self, name):
+# 		self.kinds = []
+# 		self.kinds.append(name)
+		
+# 	def move(self, x):
+# 		print(x, '의 스피드로 움직이고 있습니다.')
+		
+# 	def stop(self):
+# 		print('멈췄습니다.')
+	
+# class MaxWheel(object):
+# 	wheel = 19
+# 	def move(self, x):
+# 		print(x, '의 스피드로 큰 차가 이동 중입니다.')
+
+# class MiniWheel(object):
+# 	wheel = 15
+# 	maxSpeed = 250
+# 	def move(self, x):
+# 		print(x, '의 스피드로 작은 차가 이동 중입니다.')
+
+# class TestWheel(object):
+# 	def move(self, x):
+# 	    print(x, '의 스피드로 테스트 차가 이동 중입니다.')
+
+# class LargeCar(Car, MaxWheel):
+# 	pass
+
+# class CompactCar(Car, MiniWheel):
+# 	pass
+
+# class TestCar(Car, MaxWheel, TestWheel):
+# 	pass
+
+# my_car = LargeCar('big')
+# your_car = CompactCar('mini')
+# test_car = TestCar('test')
+
+# print(my_car.wheel) # 19
+# print(your_car.wheel) # 15
+# print(your_car.maxSpeed) # 300
+# your_car.move(100) # 100 의 스피드로 움직이고 있습니다.
+# test_car.move(100) # 100 의 스피드로 움직이고 있습니다.
 
 # 7. 비공개 속성
+"""
+- 다음과 같이 class 밖에서는 접근이 불가능한 변수를 만들 수 있음
+"""
+# class Car(object):
+#     __maxSpeed = 300
+#     maxPeople = 5
+
+#     def move(self, x):
+#         print(x, '의 스피드로 움직이고 있습니다.')
+#         print(self.__maxSpeed, '가 최고 속도입니다.')
+
+#     def stop(self):
+#         print('멈췄습니다.')
+
+# k5 = Car()
+# k5.move(10) # 10 의 스피드로 움직이고 있습니다. 300 가 최고 속도입니다.
+# print(k5.__maxSpeed) #error : class 밖에서 접근이 불가능함
+# print(k5.maxPeople) # 5
