@@ -1,12 +1,13 @@
 import os
+import re
 import discord
 import pandas as pd
 from datetime import datetime
 
 client = discord.Client(intents=discord.Intents.default())
 
-channel_id = "" # 스레드 정보를 수집할 채널의 id
-token = "" # discord bot의 token
+channel_id = ""
+token = ""
 
 def merge(df1, df2):
     df = pd.merge(df1, df2, how='outer',on='이름')
@@ -30,8 +31,16 @@ async def make_df(threads,df) :
             
             cnt = 0
             async for msg in th.history(limit=200):
-                name = msg.author.global_name # 스레드에 메시지 올린 유저 이름
-                name_list.append(name)
+                user_id = msg.author.id
+                member = await msg.guild.fetch_member(user_id)
+                name = msg.author.global_name # 스레드에 메시지 올린 유저의 기본 프로필 별명
+                nickname = member.nick # 스레드에 메시지 올린 유저의 해당 서버 별명
+
+                if nickname and '(학생)' in nickname:
+                    student_name = re.sub(r'\(학생\)', '', nickname).strip()
+                    name_list.append(student_name)
+                else:
+                    name_list.append(nickname)
                 cnt += 1
 
             for key in name_list:
