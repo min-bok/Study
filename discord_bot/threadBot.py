@@ -5,14 +5,17 @@ from datetime import datetime
 
 client = discord.Client(intents=discord.Intents.default())
 
-channel_id = 1111111 # server channel_id
-token = "111111" # bot token
+channel_id = 1191970471093215282
+token = "MTEwNTcyNjY0NjAwNDIzNjMzOQ.GZKTZi.qOEM0QGdyC9vBMUs6oMv6KR1oxuiCXwFxDrZXE"
 
 def merge(df1, df2):
     df = pd.merge(df1, df2, how='outer',on='이름')
     return df
 
 async def make_df(threads,df) :
+    if len(threads) == 0:
+        print("🚨해당 채널에는 스레드가 존재하지 않습니다.🚨")
+
     if threads:
         count=0
 
@@ -27,7 +30,7 @@ async def make_df(threads,df) :
             
             cnt = 0
             async for msg in th.history(limit=200):
-                name = msg.author.name# 스레드에 메시지 올린 유저 이름
+                name = msg.author.global_name # 스레드에 메시지 올린 유저 이름
                 name_list.append(name)
                 cnt += 1
 
