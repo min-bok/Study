@@ -5,8 +5,8 @@ from datetime import datetime
 
 client = discord.Client(intents=discord.Intents.default())
 
-channel_id = 1191970471093215282
-token = "MTEwNTcyNjY0NjAwNDIzNjMzOQ.GZKTZi.qOEM0QGdyC9vBMUs6oMv6KR1oxuiCXwFxDrZXE"
+channel_id = "" # 스레드 정보를 수집할 채널의 id
+token = "" # discord bot의 token
 
 def merge(df1, df2):
     df = pd.merge(df1, df2, how='outer',on='이름')
