@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D3</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+        :root {
+            --main-font: "Nanum Pen Script", cursive;
+        }
+
+        svg {
+            width: 500px;
+            height: 500px;
+            border: 1px gray solid
+        }
+
+        text {
+            font-family: var(--main-font);
+        }
+    </style>
+</head>
+  <body>
+    <!-- svg로 도형 그리기 -->
+    <svg width="300px" height="300px">
+      <g>
+        <circle cy="50" cx="50" r="30"></circle>
+        <rect x="100" y="50" width="100" height="100" style="fill:pink; stroke: black; stroke-width: 3px;">
+      </g>
+      <text x="200" y="200">Hello World</text>
+    </svg>
+
+    <!-- D3.js로 도형 그리기 -->
+    <div class="canvas"></div>
+    <script>
+        const canvas = d3.select(".canvas")
+
+        const svg = canvas.append("svg")
+            .attr("height", 1000)
+            .attr("width", 1000)
+
+        svg.append("text")
+            .attr('x', 270)
+            .attr("y", 200) // 글자의 좌측 하단 기준 좌표
+            .text("Hello World")
+            .style("font-weight", "bold")
+            .style("font-size", '34px')
+
+        svg.append("rect")
+            // .attr("x", 200)
+            // .attr("y", 200)
+            .attr("width", 200)
+            .attr("height", 200)
+            .attr("fill", "hotpink")
+
+        svg.append("circle")
+            .attr("r", 50)
+            .attr("cx", 200)
+            .attr("cy", 200)
+            .attr("fill", "powderblue")
+
+        svg.append("line")
+            .attr("x1", 200) // x축 시작
+            .attr("y1", 200) // y축 시작
+            .attr("x2", 300) // x축 끝
+            .attr("y2", 300) // y축 끝
+            .attr("stroke", "blue")
+            .attr("stroke-width", 5)
+    </script>
+  </body>
+</html>
