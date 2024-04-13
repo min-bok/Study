@@ -1,0 +1,56 @@
+<!-- 산점도
+    직교 좌표계(도표)를 이용해 좌표상의 점들을 표시함으로써 두 개 변수 간의
+    관계를 나타내는 그래프 방법.
+    도표 위에 두 변수 x와 y값이 만나는 지점을 표시한 그림으로 두 변수 사이의 관계를 알 수 있음
+-->
+
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>산점도 그래프 그리기</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  </head>
+  <body>
+    <div class="canvas"></div>
+    <script>
+      // r, cx, cy, color
+      const sampleData = [
+        [5, 20, 30, "#ff0000"],
+        [5, 320, 90, "#ff0000"],
+        [5, 150, 50, "#ff0000"],
+        [7, 120, 70, "#ff0000"],
+        [7, 530, 110, "#ff0000"],
+        [7, 410, 20, "#ff0000"],
+        [12, 720, 60, "#ff0000"],
+        [12, 30, 110, "#ff0000"],
+        [12, 90, 130, "#ff0000"],
+        [19, 510, 180, "#ff0000"],
+        [19, 310, 120, "#ff0000"],
+        [8, 50, 150, "#ff0000"],
+        [7, 50, 350, "#ff0000"],
+      ];
+
+      const svg = d3
+        .select(".canvas")
+        .append("svg")
+        .attr("width", 1000)
+        .attr("height", 1000);
+
+      svg
+        .selectAll("circle")
+        .data(sampleData)
+        .enter()
+        .append("circle")
+        .attr("r", (d) => d[0]) // enter(데이터 수  > dom 요소), update(재적용, 화면 갱신), exit(데이터 수  < dom 요소)
+        .attr("cx", (d) => d[1] + 10)
+        .attr("cy", (d) => d[2] + 10)
+        .attr("fill", (d) => d[3]);
+
+      // .attr("r", function(d) {
+      //     return d[0]
+      // })
+    </script>
+  </body>
+</html>

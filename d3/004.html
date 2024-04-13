@@ -1,0 +1,55 @@
+<!-- filter, map, forEach는 D3에서 자주 사용되는 array 메서드 -->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>막대 그래프 그리기</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  </head>
+  <body>
+    <svg width="500" height="500"></svg>
+    <script>
+      const sampleData = [100, 10, 30, 50, 10, 70, 200, 90];
+      const sampleData2 = [150, 60, 10, 30, 70, 10, 100, 50];
+
+      const svg = d3.select("svg");
+
+      sampleData.forEach((data, idx) => {
+        svg
+          .append("rect")
+          .attr("id", `bar-${idx}`)
+          .attr("height", data)
+          .attr("width", 30)
+          .attr("x", 40 * idx) // 막대 생성 좌표 x
+          .attr("y", 300 - data) // 막대 생성 좌표 y
+          .attr("fill", "pink")
+          .transition()
+          .duration(3000)
+          .ease(d3.easeLinear)
+          .attr("height", sampleData2[idx])
+          .attr("y", 300 - sampleData2[idx]);
+
+        svg
+          .append("text")
+          .attr("x", 40 * idx + 4)
+          .attr("y", 300 - data - 5)
+          .text(data)
+          .style("font-size", "0.85em")
+          .style("color", "#222")
+          .transition()
+          .duration(3000)
+          .ease(d3.easeLinear)
+          .attr("height", sampleData2[idx])
+          .attr("y", 300 - sampleData2[idx] - 5);
+      });
+
+      d3.select("#bar-0")
+        .transition()
+        .duration(3000)
+        .ease(d3.easeLinear)
+        .style("fill", "blue")
+        .delay(3000);
+    </script>
+  </body>
+</html>
