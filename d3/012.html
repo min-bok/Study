@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>데이터 컨트롤: scalePoint</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  </head>
+  <body>
+    <script>
+      // scalePoint는 x좌표의 값으로 자주 사용된다.
+      // domain은 변환 전 값이고 range는 변환 후 값의 범위입니다.
+
+      // range는 전체 width
+      // domain은 전체 count를 range 값으로 "동일하게" 분할하여 분배
+      const f1 = d3.scalePoint().range([0, 100]).domain([10, 12, 20, 35]);
+      //   console.log(f1(10)); // 0
+      //   console.log(f1(12)); // 33.333333333333336
+      //   console.log(f1(20)); // 66.66666666666667
+      //   console.log(f1(35)); // 100
+
+      const f2 = d3.scalePoint().range([0, 100]).domain(["a", "b", "c"]);
+      //   console.log(f2("a")); // 0
+      //   console.log(f2("b")); // 50
+      //   console.log(f2("c")); // 100
+
+      // 여백 추가(padding)
+      // 0과 100 기준으로 양 옆에 11.5만큼의 여백이 생김
+      // padding이 붙었을 경우 각 요소의 간격에 padding을 곱하여 양쪽 여백으로 줌
+      const f3 = d3
+        .scalePoint()
+        .range([0, 100])
+        .domain(["a", "b", "c"])
+        .padding(0.3);
+      // console.log(f3("a")); // 11.53846153846154
+      // console.log(f3("b")); // 50
+      // console.log(f3("c")); // 88.46153846153845
+
+      const f4 = d3.scalePoint().range([100, 200]).domain(["a", "b", "c", "d"]);
+      // console.log(f4("a")); // 100
+      // console.log(f4("b")); // 133.33333333333334
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>데이터 컨트롤: scaleLinear</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  </head>
+  <body>
+    <script>
+      // scaleLinear는 y좌표(높이값)으로 자주 사용된다.
+      // 실제 값은 0에서 500까지 있지만 max를 100으로 변환하겠다
+      const f1 = d3.scaleLinear().range([0, 100]).domain([0, 500]);
+      //   console.log(f1(250)); // 50
+      //   console.log(f1(0)); // 0
+      //   console.log(f1(500)); // 100
+      //   console.log(f1(100)); // 20
+      //   console.log(f1(1000)); // 200
+
+      // 변수를 선언하지않고 사용하면 전역변수로 취급됨
+      color = d3
+        .scaleLinear()
+        .domain([-1, 0, 1])
+        .range(["pink", "white", "hotpink"]);
+
+      //   console.log(color(-1)); // rgb(255, 192, 203)
+      //   console.log(color(-0.5)); // rgb(255, 224, 229)
+      //   console.log(color(0)); // rgb(255, 255, 255)
+      //   console.log(color(0.3)); // rgb(255, 210, 233)
+      //   console.log(color(0.5)); // rgb(255, 180, 218)
+      //   console.log(color(1)); // rgb(255, 105, 180)
+
+      // 인구수
+      const korea = d3
+        .scaleLinear()
+        .range([200, 500])
+        .domain([20000000, 50000000]);
+      console.log(korea([25000000])); // 250
+    </script>
+  </body>
+</html>

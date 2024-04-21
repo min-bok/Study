@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>데이터 컨트롤: scaleBand</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  </head>
+  <body>
+    <!-- scaleBand: 숫자가 아니라 키값으로 찾을 수 있게 해줌 -->
+    <script>
+      const f = d3
+        .scaleBand()
+        .domain(["one", "two", "three", "four"])
+        .range([0, 100]);
+
+      console.log(f("one")); // 0
+      console.log(f("two")); // 25
+      console.log(f("three")); // 50
+      console.log(f("four")); // 75
+
+      console.log(f.bandwidth()); // 25, 하나의 그래프를 그릴때 25의 넓이를 가짐
+    </script>
+  </body>
+</html>
