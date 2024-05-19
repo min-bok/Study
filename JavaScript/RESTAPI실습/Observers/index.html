@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Observer study</title>
+    <style>
+      button {
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <button class="startBtn">start</button>
+      <button class="endBtn">end</button>
+    </div>
+    <div>
+      <button class="connect" onclick="start_connent()">감시시작</button>
+      <button class="disconnect" onclick="end_connect()">감시종료</button>
+    </div>
+    <p class="status"></p>
+
+    <h1 class="target" contenteditable>초깃값</h1>
+    <script src="./script.js"></script>
+    <script src="./observer.js"></script>
+  </body>
+</html>

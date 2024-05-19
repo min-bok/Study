@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>실전처럼 막대 그래프 그리기(bar)</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  </head>
+  <body>
+    <h1>확진자수 현황</h1>
+    <div class="canvas"></div>
+    <script>
+      const width = 800;
+      const height = 800;
+      let [mt, mb, mr, ml] = [20, 20, 20, 20];
+
+      const svg = d3
+        .select(".canvas")
+        .append("svg")
+        .attr("width", 800)
+        .attr("height", 800);
+
+      const graphWidth = width - ml - mr;
+      const graphHeiht = height - mt - mb;
+
+      const graph = svg
+        .append("g")
+        .attr("width", graphWidth)
+        .attr("height", graphHeiht)
+        .attr("transform", `translate(${ml} ${mt})`); // 그룹지어 움직이기위해 g태그 사용
+
+      d3.json("data/data4.json")
+        .then((data) => {
+          console.log("성공");
+          data.forEach((e) => {
+            console.log(e);
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    </script>
+  </body>
+</html>
