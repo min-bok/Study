@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <style>
+    .sizeInput input:focus {
+      background-color: pink;
+    }
+  </style>
+  <body>
+    <span class="sizeInput">
+      <input value="hello" />
+    </span>
+
+    <script>
+      const width = parseInt(3535);
+      const sizeInput = document.querySelector(".sizeInput input");
+
+      // blur 이벤트에 대한 이벤트 리스너 추가
+      sizeInput.addEventListener("blur", () => {
+        console.log("js Blur 이벤트가 실행되었습니다");
+      });
+
+      sizeInput.addEventListener("focusout", () => {
+        console.log("js focusout 이벤트가 실행되었습니다");
+      });
+
+      //   focus() : 실행됨
+      //   sizeInput.focus();
+      sizeInput.value = width;
+      //   sizeInput.blur();
+
+      // blur 이벤트에 대한 이벤트 리스너 추가
+      $(".sizeInput input").on("blur", () => {
+        console.log("jQuery Blur 이벤트가 실행되었습니다");
+      });
+
+      // 값 설정 후 blur 이벤트 트리거
+      $(".sizeInput input").val(width).blur();
+    </script>
+  </body>
+</html>
