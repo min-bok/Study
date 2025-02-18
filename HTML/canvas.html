@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .color-picker-container {
+        position: relative;
+        width: 200px;
+        height: 170px;
+        background-color: antiquewhite;
+        margin: 0 auto;
+      }
+
+      .palette-container {
+        position: relative;
+      }
+
+      .palette-canvas {
+        width: 170px;
+        height: 170px;
+        cursor: crosshair;
+      }
+
+      .indicator {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        top: 0;
+        left: 0;
+        border: 2px solid white;
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+      }
+
+      .wide.indicator {
+        position: absolute;
+        width: 20px;
+        height: 4px;
+        border-radius: 2px;
+        top: 0;
+        left: 0;
+        transform: translate(-8%, -25%);
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+
+      .hue-slider-container {
+        position: absolute;
+        width: 20px;
+        height: 170px;
+        top: 0;
+        right: 0;
+      }
+
+      .hue-slider {
+        position: relative;
+        width: 20px;
+        height: 170px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      let hue = "red";
+
+      //   rgb 컬러코드를 hex 컬러코드로 변환해주는 함수
+      const rgbtohex = (rgb) => {
+        const colors = rgb.split(",");
+
+        return `#${
+          rgb &&
+          colors
+            .map((color) => Number(color).toString(16).padStart(2, "0"))
+            .join("")
+        }`;
+      };
+
+      //   slider를 활용한 hue 값 설정
+      function sliderHuePicker(e, canvas) {
+        const indicator = document.querySelector(
+          ".hue-slider-container .indicator"
+        );
+        let ctx = canvas.getContext("2d", { willReadFrequently: true });
+        const bounding = canvas.getBoundingClientRect();
+        const x = e.clientX - bounding.left;
+        const y = e.clientY - bounding.top;
+        if (indicator) indicator.style.top = `${y}px`;
+        const pixel = ctx.getImageData(x, y, 1, 1);
+        const data = pixel.data;
+        const rgbColor = `${data[0]},${data[1]},${data[2]}`;
+
+        return rgbtohex(rgbColor);
+      }
+
+      //   slider를 활용한 hue 값 설정
+      function colorPicker(e, canvas) {
+        let ctx = canvas.getContext("2d", { willReadFrequently: true });
+        const indicator = document.querySelector(
+          ".palette-container .indicator"
+        );
+        // const customColorInput = document.querySelector(".pencil-color-input");
+        // const currentColor = document.querySelector(".pencil-current-color");
+
+        const bounding = canvas.getBoundingClientRect();
+        const x = e.clientX - bounding.left;
+        const y = e.clientY - bounding.top;
+        if (indicator) {
+          indicator.style.left = `${x}px`;
+          indicator.style.top = `${y}px`;
+        }
+        const pixel = ctx.getImageData(x, y, 1, 1);
+        const data = pixel.data;
+        const rgbColor = `${data[0]},${data[1]},${data[2]}`;
+
+        const color = rgbtohex(rgbColor);
+
+        ctx.strokeStyle = color;
+        // customColorInput.value = color;
+        // currentColor.style.background = color;
+        // sessionStorage.setItem("pencilStrokeStyle", color);
+      }
+
+      //   palette 생성
+      function createPalette(hue = "#FF0000") {
+        const palette = document.querySelector(".palette-canvas");
+
+        if (!palette) return;
+
+        let ctx = palette.getContext("2d", { willReadFrequently: true });
+        const gradient = ctx.createLinearGradient(0, 0, palette.width, 0);
+
+        gradient.addColorStop(0, "#FFFFFF");
+        gradient.addColorStop(1, hue);
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, palette.width, palette.height);
+
+        const overlay = ctx.createLinearGradient(0, 0, 0, palette.height);
+
+        overlay.addColorStop(0, "rgba(255, 255, 255, 0)");
+        overlay.addColorStop(1, "#000000");
+
+        ctx.fillStyle = overlay;
+        ctx.fillRect(0, 0, palette.width, palette.height);
+      }
+
+      //   hue slider 생성
+      function createHueSlider() {
+        console.log("createHueSlider 실행됨");
+        const slider = document.querySelector(".hue-slider");
+
+        if (!slider) return;
+
+        let ctx = slider.getContext("2d", { willReadFrequently: true });
+        const gradient = ctx.createLinearGradient(0, 0, 0, slider.height);
+
+        gradient.addColorStop(0, "red");
+        gradient.addColorStop(0.2, "yellow");
+        gradient.addColorStop(0.4, "green");
+        gradient.addColorStop(0.6, "cyan");
+        gradient.addColorStop(0.8, "blue");
+        gradient.addColorStop(1, "magenta");
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, slider.width, slider.height);
+      }
+
+      function createColorPicker() {
+        const wrap = document.createElement("div");
+        wrap.classList.add("color-picker-container");
+
+        // palette
+        const paletteCont = document.createElement("div");
+        paletteCont.classList.add("palette-container");
+        const palette = document.createElement("canvas");
+        palette.classList.add("palette-canvas");
+        const paletteIndicator = document.createElement("div");
+        paletteIndicator.classList.add("indicator");
+
+        paletteCont.append(palette);
+        paletteCont.append(paletteIndicator);
+
+        // slider
+        const sliderCont = document.createElement("div");
+        sliderCont.classList.add("hue-slider-container");
+        const slider = document.createElement("canvas");
+        slider.classList.add("hue-slider");
+        const sliderIndicator = document.createElement("div");
+        sliderIndicator.classList.add("indicator");
+        sliderIndicator.classList.add("wide");
+
+        sliderCont.append(slider);
+        sliderCont.append(sliderIndicator);
+
+        wrap.append(paletteCont);
+        wrap.append(sliderCont);
+
+        const body = document.querySelector("body");
+        body.append(wrap);
+
+        palette.addEventListener("click", (e) => {
+          colorPicker(e, palette);
+        });
+
+        slider.addEventListener("click", (e) => {
+          hue = sliderHuePicker(e, slider);
+          createPalette(hue);
+        });
+
+        setTimeout(() => {
+          createPalette();
+          createHueSlider();
+        }, 0);
+      }
+
+      createColorPicker();
+    </script>
+  </body>
+</html>
