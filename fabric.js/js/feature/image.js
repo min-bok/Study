@@ -1,3 +1,5 @@
+import { deleteControlStyle } from "./move.js";
+
 export const uploadImage = (canvas, file) => {
   const reader = new FileReader();
 
@@ -13,6 +15,9 @@ export const uploadImage = (canvas, file) => {
         scaleX: 0.5,
         scaleY: 0.5,
       });
+
+      fabricImg.controls.deleteControl = new fabric.Control(deleteControlStyle); // 객체 삭제 버튼 추가
+
       canvas.add(fabricImg);
       canvas.requestRenderAll();
     };

@@ -49,5 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       Array.from(files).forEach((file) => {
         uploadImage(canvas, file);
       });
+
+      e.target.value = "";
     });
 });

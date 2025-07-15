@@ -1,3 +1,5 @@
+import { deleteControlStyle } from "./move.js";
+
 export const drawBrush = (canvas) => {
   const _glowShadow = {
     color: "red",
@@ -18,4 +20,10 @@ export const drawBrush = (canvas) => {
 
   canvas.isDrawingMode = true;
   canvas.freeDrawingBrush = brush;
+
+  canvas.on("path:created", (e) => {
+    const path = e.path;
+    path.controls.deleteControl = new fabric.Control(deleteControlStyle);
+    canvas.requestRenderAll();
+  });
 };

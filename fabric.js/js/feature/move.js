@@ -25,9 +25,9 @@ export function renderDeleteIcon(ctx, left, top, _styleOverride, fabricObject) {
 }
 
 export const deleteControlStyle = {
-  x: 0.5,
+  x: 0,
   y: -0.5,
-  offsetY: 16,
+  offsetY: -20,
   cursorStyle: "pointer",
   mouseUpHandler: deleteObject,
   render: renderDeleteIcon,
