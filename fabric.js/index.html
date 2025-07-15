@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <canvas
+      id="canvas"
+      width="1000"
+      height="1000"
+      style="width: 1000px; height: 1000px"
+    ></canvas>
+
+    <button class="drawBrush">brush</button>
+    <button class="loadTypography">text 추가하기</button>
+    <button class="move">객체이동</button>
+
+    <select id="fontSelector">
+      <option value="serif">Nanum Myeongjo</option>
+      <option value="sans-serif" selected>Pretendard</option>
+      <option value="cursive">Poor Story</option>
+    </select>
+
+    <label for="load-image">이미지 삽입</label>
+    <input type="file" name="load-image" id="load-image" multiple />
+  </body>
+  <script src="./js/fabric.js"></script>
+  <script type="module" src="./js/index.js"></script>
+</html>
