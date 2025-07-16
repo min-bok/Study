@@ -33,6 +33,8 @@
     <button class="eraserBrush">eraser</button>
     <label for="eraser-size">지우개 크기</label>
     <input type="range" name="eraser-size" id="eraser-size" min="1" max="100" />
+    <button class="canvas-clear">전체삭제</button>
+
     <button class="loadTypography">text 추가하기</button>
     <button class="move">객체이동</button>
 
@@ -41,6 +43,14 @@
       <option value="sans-serif" selected>Pretendard</option>
       <option value="cursive">Poor Story</option>
     </select>
+
+    <div class="sticker-wrap">
+      <button class="sticker" id="sticker-num1" value="num1"></button>
+      <button class="sticker" id="sticker-num2" value="num2"></button>
+      <button class="sticker" id="sticker-num3" value="num3"></button>
+    </div>
+    <label for="sticker-color">스티커 컬러 변경</label>
+    <input type="color" name="sticker-color" id="sticker-color" />
 
     <label for="load-image">이미지 삽입</label>
     <input type="file" name="load-image" id="load-image" multiple />

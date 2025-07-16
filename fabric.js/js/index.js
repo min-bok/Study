@@ -3,10 +3,11 @@ import { drawBrush, drawEraser } from "./feature/brush.js";
 import { uploadImage } from "./feature/image.js";
 import { copy, paste } from "./feature/copy.js";
 import { grouping, ungrounping } from "./feature/group.js";
+import "./feature/sticker.js";
+
+export const canvas = new fabric.Canvas("canvas");
 
 document.addEventListener("DOMContentLoaded", () => {
-  const canvas = new fabric.Canvas("canvas");
-
   if (!canvas) return;
 
   // brush 관련 이벤트 트리거
@@ -27,6 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // move: brash 이벤트를 종료하고, move 이벤트 실행
   document.querySelector(".move").addEventListener("click", () => {
     canvas.isDrawingMode = false;
+  });
+
+  // 전체 삭제 기능 활성화
+  document.querySelector(".canvas-clear").addEventListener("click", () => {
+    canvas.clear();
   });
 
   // 복사/붙여넣기 관련 이벤트 트리거
