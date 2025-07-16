@@ -1,11 +1,8 @@
 import { createTypography } from "./feature/typography.js";
-import { drawBrush } from "./feature/brush.js";
+import { drawBrush, drawEraser } from "./feature/brush.js";
 import { uploadImage } from "./feature/image.js";
 import { copy, paste } from "./feature/copy.js";
-
-// Nanum Myeongjo
-// Poor Story
-// Pretendard
+import { grouping, ungrounping } from "./feature/group.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = new fabric.Canvas("canvas");
@@ -15,6 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // brush 관련 이벤트 트리거
   document.querySelector(".drawBrush").addEventListener("click", () => {
     drawBrush(canvas);
+  });
+
+  // eraser 관련 이벤트 트리거
+  document.querySelector(".eraserBrush").addEventListener("click", () => {
+    drawEraser(canvas);
   });
 
   // typography 관련 이벤트 트리거
@@ -52,4 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       e.target.value = "";
     });
+
+  // 객체 그룹화 및 그룹화 해제
+  document
+    .querySelector(".grouping")
+    .addEventListener("click", () => grouping(canvas));
+  document
+    .querySelector(".ungrouping")
+    .addEventListener("click", () => ungrounping(canvas));
 });

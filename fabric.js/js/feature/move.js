@@ -3,12 +3,23 @@ const deleteIcon =
 const deleteImg = document.createElement("img");
 deleteImg.src = deleteIcon;
 
+/** 객체 삭제 */
 export function deleteObject(_eventData, transform) {
   const canvas = transform.target.canvas;
+  const target = transform.target;
+
+  // 타겟 객체가 group일때
+  if (target.type === "group") {
+    target._objects.forEach((obj) => {
+      canvas.remove(obj);
+    });
+  }
+
   canvas.remove(transform.target);
   canvas.requestRenderAll();
 }
 
+/** 삭제 버튼 렌더링 */
 export function renderDeleteIcon(ctx, left, top, _styleOverride, fabricObject) {
   const size = this.cornerSize;
 
@@ -24,6 +35,7 @@ export function renderDeleteIcon(ctx, left, top, _styleOverride, fabricObject) {
   ctx.restore();
 }
 
+// 삭제 버튼 관련 정보
 export const deleteControlStyle = {
   x: 0,
   y: -0.5,

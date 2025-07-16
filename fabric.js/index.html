@@ -20,14 +20,19 @@
     />
   </head>
   <body>
-    <canvas
-      id="canvas"
-      width="1000"
-      height="1000"
-      style="width: 1000px; height: 1000px"
-    ></canvas>
+    <div id="canvas-wrapper" style="position: relative">
+      <canvas
+        id="canvas"
+        width="1000"
+        height="1000"
+        style="width: 1000px; height: 1000px"
+      ></canvas>
+    </div>
 
     <button class="drawBrush">brush</button>
+    <button class="eraserBrush">eraser</button>
+    <label for="eraser-size">지우개 크기</label>
+    <input type="range" name="eraser-size" id="eraser-size" min="1" max="100" />
     <button class="loadTypography">text 추가하기</button>
     <button class="move">객체이동</button>
 
@@ -39,6 +44,9 @@
 
     <label for="load-image">이미지 삽입</label>
     <input type="file" name="load-image" id="load-image" multiple />
+
+    <button class="grouping">그룹화</button>
+    <button class="ungrouping">그룹화 해제</button>
   </body>
   <script src="./js/fabric.js"></script>
   <script type="module" src="./js/index.js"></script>

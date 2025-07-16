@@ -4,7 +4,7 @@ export const createTypography = (canvas) => {
   console.log("createTypography 함수 실행됨");
   document.fonts.ready.then(() => {
     let _fontSize = 30;
-    let _fontFamily = "Pretendard";
+    let _fontFamily = "Pretendard"; // Nanum Myeongjo, Pretendard, Poor Story
     let _color = "red";
     let _fontWeight = 100;
     let _lineHeight = 1.2;
@@ -21,6 +21,8 @@ export const createTypography = (canvas) => {
     canvas.isDrawingMode = false;
 
     const text = new fabric.IText("Fabric.JS", {
+      left: Math.random() * 500,
+      top: Math.random() * 500,
       fontFamily: _fontFamily,
       fontSize: _fontSize,
       fill: _color, // 텍스트 색
@@ -45,7 +47,7 @@ export const createTypography = (canvas) => {
     text.controls.deleteControl = new fabric.Control(deleteControlStyle); // 객체 삭제 버튼 추가
 
     canvas.add(text);
-    canvas.centerObject(text); // 가운데 정렬
+    // canvas.centerObject(text); // 가운데 정렬
     canvas.setActiveObject(text);
 
     /** 서체 변경 */

@@ -8,3 +8,27 @@ canvas {
   border: 1px solid #000;
   display: block;
 }
+
+#canvas-wrapper {
+  overflow: hidden;
+  background-color: powderblue;
+  width: 1000px;
+  height: 1000px;
+}
+
+.eraser-cursor {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #999;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  transition-property: background, transform;
+  transform-origin: 100% 100%;
+  backdrop-filter: sepia(20%);
+  background-size: cover;
+}
