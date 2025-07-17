@@ -3,12 +3,16 @@ import { drawBrush, drawEraser } from "./feature/brush.js";
 import { uploadImage } from "./feature/image.js";
 import { copy, paste } from "./feature/copy.js";
 import { grouping, ungrounping } from "./feature/group.js";
+import "./feature/historyManager.js";
 import "./feature/sticker.js";
+import { initHistory } from "./feature/historyManager.js";
 
-export const canvas = new fabric.Canvas("canvas");
+export let canvas = new fabric.Canvas("canvas");
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!canvas) return;
+
+  initHistory(canvas);
 
   // brush 관련 이벤트 트리거
   document.querySelector(".drawBrush").addEventListener("click", () => {

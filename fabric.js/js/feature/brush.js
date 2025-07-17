@@ -42,7 +42,11 @@ export const drawEraser = (canvas) => {
   // 커스텀 커서 관련 기능
   const realCanvasWrapper = document.querySelector("#canvas-wrapper");
   const customCursor = createEraserCursor();
-  realCanvasWrapper.appendChild(customCursor);
+
+  if (!realCanvasWrapper.querySelector(".eraser-cursor")) {
+    console.log("이미 지우개 커서가 존재함");
+    realCanvasWrapper.appendChild(customCursor);
+  }
   realCanvasWrapper.addEventListener("pointermove", (e) => {
     eraserCursorPosition(e, realCanvasWrapper);
   });
