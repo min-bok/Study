@@ -32,10 +32,6 @@ function updateButtons() {
 
 /** 작업 상태 저장 */
 export function saveState() {
-  console.log("saveState 실행됨");
-  console.log("!canvasRef", !canvasRef);
-  console.log("isRestoring", isRestoring);
-
   if (!canvasRef || isRestoring) {
     console.log("예외처리에 걸려버렸다");
     return;

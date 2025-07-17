@@ -1,34 +1,35 @@
 import { deleteControlStyle } from "./move.js";
+import { saveState } from "./historyManager.js";
 
 /** 객체 그룹화 */
 export const grouping = (canvas) => {
-  if (!canvas.getActiveObject()) {
+  const group = canvas.getActiveObject();
+  if (!group) {
     return;
   }
-  if (
-    canvas.getActiveObject().type !== "activeSelection" &&
-    canvas.getActiveObject().type !== "activeselection"
-  ) {
-    return;
-  }
-  const group = new fabric.Group(canvas.getActiveObject().removeAll());
-  group.controls.deleteControl = new fabric.Control(deleteControlStyle); // 객체 삭제 버튼 추가
 
-  canvas.add(group);
-  canvas.setActiveObject(group);
+  saveState();
+
+  if (group.type !== "activeSelection") {
+    return;
+  }
+  const newGroup = group.toGroup();
+  newGroup.controls.deleteControl = new fabric.Control(deleteControlStyle);
   canvas.requestRenderAll();
+
+  saveState();
 };
 
 /** 객체 그룹화 해제 */
 export const ungrounping = (canvas) => {
   const group = canvas.getActiveObject();
-  if (!group || group.type !== "group") {
+  if (!group) {
     return;
   }
-  canvas.remove(group);
-  var sel = new fabric.ActiveSelection(group.removeAll(), {
-    canvas: canvas,
-  });
-  canvas.setActiveObject(sel);
+  if (group.type !== "group") {
+    return;
+  }
+  group.toActiveSelection();
   canvas.requestRenderAll();
+  saveState();
 };
