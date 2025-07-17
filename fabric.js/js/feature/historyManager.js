@@ -33,6 +33,8 @@ function updateButtons() {
 /** 작업 상태 저장 */
 export function saveState() {
   console.log("saveState 실행됨");
+  console.log("!canvasRef", !canvasRef);
+  console.log("isRestoring", isRestoring);
 
   if (!canvasRef || isRestoring) {
     console.log("예외처리에 걸려버렸다");
@@ -71,7 +73,10 @@ export function historyUndo() {
   isRestoring = true;
   canvasRef.clear();
   canvasRef.loadFromJSON(prevState, () => {
-    canvasRef.renderAll();
+    canvasRef.requestRenderAll();
+  });
+
+  canvasRef.once("after:render", () => {
     isRestoring = false;
     updateButtons();
   });
@@ -92,7 +97,9 @@ export function historyRedo() {
   isRestoring = true;
   canvasRef.clear();
   canvasRef.loadFromJSON(nextState, () => {
-    canvasRef.renderAll();
+    canvasRef.requestRenderAll();
+  });
+  canvasRef.once("after:render", () => {
     isRestoring = false;
     updateButtons();
   });
