@@ -56,6 +56,7 @@ export const createTypography = (canvas) => {
       const active = canvas.getActiveObject();
       if (active && active.type === "i-text") {
         active.set("fontFamily", font);
+        canvas.fire("object:modified", { target: active });
         canvas.requestRenderAll();
       }
     });

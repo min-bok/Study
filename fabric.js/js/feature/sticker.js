@@ -1,6 +1,7 @@
 import { sticker } from "../stickerList.js";
 import { canvas } from "../index.js";
 import { deleteControlStyle } from "./move.js";
+import { saveState } from "./historyManager.js";
 
 /** canvas에 svg를 불러오는 함수 */
 const uploadSVG = (sticker) => {
@@ -41,4 +42,5 @@ document.querySelector("#sticker-color").addEventListener("input", (e) => {
   }
 
   canvas.requestRenderAll();
+  saveState();
 });

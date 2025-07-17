@@ -12,7 +12,7 @@ export let canvas = new fabric.Canvas("canvas");
 document.addEventListener("DOMContentLoaded", () => {
   if (!canvas) return;
 
-  initHistory(canvas);
+  initHistory(canvas); // history 관련: redo, undo
 
   // brush 관련 이벤트 트리거
   document.querySelector(".drawBrush").addEventListener("click", () => {
