@@ -6,6 +6,7 @@ import { grouping, ungrounping } from "./feature/group.js";
 import "./feature/historyManager.js";
 import "./feature/sticker.js";
 import { initHistory } from "./feature/historyManager.js";
+import { mouseWheel } from "./feature/move.js";
 
 export let canvas = new fabric.Canvas("canvas");
 
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!canvas) return;
 
   initHistory(canvas); // history 관련: redo, undo
+  mouseWheel(canvas); // 줌인/줌아웃
 
   // brush 관련 이벤트 트리거
   document.querySelector(".drawBrush").addEventListener("click", () => {

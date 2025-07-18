@@ -45,3 +45,21 @@ export const deleteControlStyle = {
   render: renderDeleteIcon,
   cornerSize: 24,
 };
+
+/** 마우스 휠로 줌 인, 줌 아웃 */
+export const mouseWheel = (canvas) => {
+  canvas.on("mouse:wheel", (opt) => {
+    const delta = opt.e.deltaY;
+    let zoom = canvas.getZoom();
+    zoom *= 0.999 ** delta;
+
+    // 줌 범위 제한
+    if (zoom > 20) zoom = 20;
+    if (zoom < 0.01) zoom = 0.01;
+
+    canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+
+    opt.e.preventDefault();
+    opt.e.stopPropagation();
+  });
+};
