@@ -79,4 +79,23 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelector(".ungrouping")
     .addEventListener("click", () => ungrounping(canvas));
+
+  // 현재 캔버스 저장
+  document.querySelector(".saveCanvas").addEventListener("click", () => {
+    console.log("현재 캔버스 저장");
+    const savedState = canvas.toJSON();
+    sessionStorage.setItem("canvasState", JSON.stringify(savedState));
+  });
+
+  // 저장된 캔버스 불러오기
+  document.querySelector(".getSaveedState").addEventListener("click", () => {
+    console.log("저장된 캔버스 불러오기");
+    const savedState = sessionStorage.getItem("canvasState");
+
+    if (!savedState) return;
+
+    canvas.loadFromJSON(JSON.parse(savedState), () => {
+      canvas.renderAll();
+    });
+  });
 });
