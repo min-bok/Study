@@ -63,3 +63,29 @@ export const mouseWheel = (canvas) => {
     opt.e.stopPropagation();
   });
 };
+
+/** 마우스를 이용한 화면 이동 기능 */
+export const handleHandTool = (canvas) => {
+  console.log("handleHandTool 함수 실행됨");
+  canvas.isDrawingMode = false;
+  canvas.selection = false;
+  canvas.defaultCursor = "move";
+
+  let panning = false;
+
+  const handleMouseDown = () => {
+    panning = true;
+  };
+  const handleMouseMove = (event) => {
+    if (panning) {
+      const delta = new fabric.Point(event.e.movementX, event.e.movementY);
+      canvas.relativePan(delta);
+    }
+  };
+  const handleMouseUp = () => {
+    panning = false;
+  };
+  canvas.on("mouse:down", handleMouseDown);
+  canvas.on("mouse:move", handleMouseMove);
+  canvas.on("mouse:up", handleMouseUp);
+};

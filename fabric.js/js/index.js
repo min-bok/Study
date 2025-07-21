@@ -6,7 +6,7 @@ import { grouping, ungrounping } from "./feature/group.js";
 import "./feature/historyManager.js";
 import "./feature/sticker.js";
 import { initHistory } from "./feature/historyManager.js";
-import { mouseWheel } from "./feature/move.js";
+import { mouseWheel, handleHandTool } from "./feature/move.js";
 
 export let canvas = new fabric.Canvas("canvas");
 
@@ -34,6 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // move: brash 이벤트를 종료하고, move 이벤트 실행
   document.querySelector(".move").addEventListener("click", () => {
     canvas.isDrawingMode = false;
+  });
+
+  // Hand Tool 관련 이벤트 트리거
+  document.querySelector(".hand-tool").addEventListener("click", () => {
+    handleHandTool(canvas);
   });
 
   // 전체 삭제 기능 활성화
