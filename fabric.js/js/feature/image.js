@@ -16,6 +16,7 @@ document
     e.target.value = "";
   });
 
+/** 이미지를 업로드하는 함수 */
 export const uploadImage = (canvas, file) => {
   const reader = new FileReader();
 
@@ -47,6 +48,7 @@ export const uploadImage = (canvas, file) => {
   };
 
   reader.readAsDataURL(file);
+  // controlBorderRadius(); // 이미지의 border-radius 조절
 };
 
 // 이미지 crop 기능 실행
@@ -133,3 +135,71 @@ export function clipImage(canvas) {
   target.setCoords();
   canvas.requestRenderAll();
 }
+
+/** 이미지 border-radius 조절 */
+// function controlBorderRadius() {
+//   canvas.on("mouse:down", (e) => {
+//     const target = e.target;
+
+//     if (!target || target.type !== "image") {
+//       console.log("객체가 선택되지않았거나, 이미지가 아님");
+//       return;
+//     }
+
+//     if (target.type === "image") {
+//       console.log("이미지가 클릭됨");
+
+//       console.log("target.width", target.width);
+//       console.log("target.height", target.height);
+
+//       if (!target.clipPath) {
+//         const clipRect = new fabric.Rect({
+//           width: target.width,
+//           height: target.height,
+//           rx: 0,
+//           ry: 0,
+//           originX: "center",
+//           originY: "center",
+//           absolutePositioned: true,
+//         });
+
+//         target.set({
+//           clipPath: clipRect,
+//         });
+//       }
+
+//       target.controls.borderRadis = new fabric.Control({
+//         x: -0.5,
+//         y: -0.5,
+//         offsetX: 15,
+//         offsetY: 15,
+//         actionHandler: (eventData, transform) => {
+//           console.log("좌측 상단 border-radius 조절해볼게");
+//           const img = transform.target;
+
+//           const pointer = img.canvas.getPointer(eventData.e);
+//           const newRadius = Math.max(0, pointer.x - img.left); // 마우스 x좌표로 라운드 조절
+
+//           if (img.clipPath) {
+//             img.clipPath.set({
+//               rx: newRadius,
+//               ry: newRadius,
+//             });
+//             img.clipPath.setCoords();
+//             img.canvas.requestRenderAll();
+//           }
+
+//           return true;
+//         },
+//         render: fabric.controlsUtils.renderCircleControl,
+//         cornerSize: 8,
+//       });
+
+//       target.cornerColor = "blue"; // 동그라미 내부 색상
+//       target.cornerStrokeColor = "white"; // 동그라미 테두리 색상
+//       target.transparentCorners = false;
+
+//       canvas.requestRenderAll();
+//     }
+//   });
+// }
