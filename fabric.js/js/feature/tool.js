@@ -6,6 +6,16 @@ document.querySelector(".tool-wrap .text-box").addEventListener("click", () => {
   createTextbox(canvas);
 });
 
+document.querySelector(".tool-wrap .rect").addEventListener("click", () => {
+  console.log("사각형 버튼 클릭됨");
+  createRect(canvas);
+});
+
+document.querySelector(".tool-wrap .circle").addEventListener("click", () => {
+  console.log("원형 버튼 클릭됨");
+  createCircle(canvas);
+});
+
 function createTextbox(canvas) {
   const text = new fabric.IText("Fabric.JS", {
     fontFamily: "Pretendard",
@@ -24,8 +34,6 @@ function createTextbox(canvas) {
     width: text.width + 20,
     height: text.height + 20,
     fill: "white",
-    // rx: 5,
-    // ry: 5,
     selectable: false,
   });
 
@@ -38,4 +46,35 @@ function createTextbox(canvas) {
 
   canvas.add(group);
   canvas.setActiveObject(group);
+}
+
+/** 사각형 만들기 */
+function createRect(canvas) {
+  console.log("createRect 실행됨");
+  const rect = new fabric.Rect({
+    left: Math.random() * 500,
+    top: Math.random() * 500,
+    width: 100,
+    height: 100,
+    fill: "powderblue",
+    opacity: 1,
+  });
+
+  canvas.add(rect);
+  canvas.setActiveObject(rect);
+}
+
+/** 원형 만들기 */
+function createCircle(canvas) {
+  console.log("createCircle 실행됨");
+  const circle = new fabric.Circle({
+    left: Math.random() * 500,
+    top: Math.random() * 500,
+    radius: 50,
+    fill: "pink",
+    opacity: 1,
+  });
+
+  canvas.add(circle);
+  canvas.setActiveObject(circle);
 }
