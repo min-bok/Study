@@ -1,12 +1,13 @@
 import { createTypography } from "./feature/typography.js";
 import { drawBrush, drawEraser } from "./feature/brush.js";
-import { uploadImage } from "./feature/image.js";
 import { copy, paste } from "./feature/copy.js";
 import { grouping, ungrounping } from "./feature/group.js";
-import "./feature/historyManager.js";
-import "./feature/sticker.js";
 import { initHistory } from "./feature/historyManager.js";
 import { mouseWheel, handleHandTool } from "./feature/move.js";
+import "./feature/image.js";
+import "./feature/historyManager.js";
+import "./feature/sticker.js";
+import "./feature/tool.js";
 
 export let canvas = new fabric.Canvas("canvas");
 
@@ -56,21 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
       paste(canvas);
     }
   });
-
-  // 이미지 업로드: input에서 파일이 변경되면 각 파일을 캔버스에 추가
-  document
-    .querySelector("input[type='file']#load-image")
-    .addEventListener("change", (e) => {
-      const files = e.target.files;
-
-      if (!files) return;
-
-      Array.from(files).forEach((file) => {
-        uploadImage(canvas, file);
-      });
-
-      e.target.value = "";
-    });
 
   // 객체 그룹화 및 그룹화 해제
   document

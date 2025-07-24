@@ -19,7 +19,6 @@
       rel="stylesheet"
     />
   </head>
-  <body>
     <div id="canvas-wrapper" style="position: relative">
       <canvas
         id="canvas"
@@ -44,6 +43,10 @@
       <option value="cursive">Poor Story</option>
     </select>
 
+    <div class="tool-wrap">
+      <button class="text-box">텍스트박스</button>
+    </div>
+
     <div class="sticker-wrap">
       <button class="sticker" id="sticker-num1" value="num1"></button>
       <button class="sticker" id="sticker-num2" value="num2"></button>
@@ -52,8 +55,11 @@
     <label for="sticker-color">스티커 컬러 변경</label>
     <input type="color" name="sticker-color" id="sticker-color" />
 
-    <label for="load-image">이미지 삽입</label>
-    <input type="file" name="load-image" id="load-image" multiple />
+    <div class="image-wrap">
+      <label for="load-image">이미지 삽입</label>
+      <input type="file" name="load-image" id="load-image" multiple />
+      <button class="image-crop">crop</button>
+    </div>
 
     <button class="hand-tool">Hand Tool</button>
 

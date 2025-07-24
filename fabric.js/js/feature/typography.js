@@ -6,10 +6,10 @@ export const createTypography = (canvas) => {
     let _fontSize = 30;
     let _fontFamily = "Pretendard"; // Nanum Myeongjo, Pretendard, Poor Story
     let _color = "red";
-    let _fontWeight = 100;
+    let _fontWeight = 700;
     let _lineHeight = 1.2;
-    let _skewX = -15;
-    let _align = "left";
+    let _skewX = 0; // -15
+    let _align = "right";
     const _shadow = {
       color: "red",
       blur: 20, // 번짐 정도 (빛 퍼짐 효과)
@@ -37,9 +37,10 @@ export const createTypography = (canvas) => {
       skewX: _skewX, // 이탤릭체
       lineHeight: _lineHeight, // 행간
       textAlign: _align,
-      underline: true, // underline
+      underline: false, // underline
       charSpacing: 100, // 자간
-      opacity: 0.5, // 투명도
+      opacity: 1, // 투명도
+      backgroundColor: "pink",
       // shadow: _shadow,
       includeDefaultValues: false, // 텍스트 객체 직렬화시 기본값 포함여부, true: 모든 속성 포함
     });
