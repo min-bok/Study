@@ -1,9 +1,10 @@
+import "./saveData.js";
 import { createTypography } from "./feature/typography.js";
-import { drawBrush, drawEraser } from "./feature/brush.js";
 import { copy, paste } from "./feature/copy.js";
 import { grouping, ungrounping } from "./feature/group.js";
 import { initHistory } from "./feature/historyManager.js";
 import { mouseWheel, handleHandTool } from "./feature/move.js";
+import "./feature/brush.js";
 import "./feature/image.js";
 import "./feature/historyManager.js";
 import "./feature/sticker.js";
@@ -23,16 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initHistory(canvas); // history 관련: redo, undo
   mouseWheel(canvas); // 줌인/줌아웃
-
-  // brush 관련 이벤트 트리거
-  // document.querySelector(".drawBrush").addEventListener("click", () => {
-  //   drawBrush(canvas);
-  // });
-
-  // eraser 관련 이벤트 트리거
-  document.querySelector(".eraserBrush").addEventListener("click", () => {
-    drawEraser(canvas);
-  });
 
   // typography 관련 이벤트 트리거
   document.querySelector(".loadTypography").addEventListener("click", () => {
