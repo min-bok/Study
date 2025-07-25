@@ -4,6 +4,7 @@ import { canvas } from "../index.js";
 const area = document.querySelector("body");
 const brushSizeSlide = document.querySelector("#brush-size");
 const brushSizeLabel = document.querySelector(".brush-size-label");
+const brushColorInput = document.querySelector("#brush-color");
 
 // 일반펜 관련 이벤트 트리거
 document.querySelector(".drawBrush").addEventListener("click", () => {
@@ -13,6 +14,7 @@ document.querySelector(".drawBrush").addEventListener("click", () => {
   area.className = "pen";
   brushSizeSlide.value = width;
   brushSizeLabel.textContent = width;
+  brushColorInput.value = color;
 });
 
 // 형광펜 관련 이벤트 트리거
@@ -23,6 +25,7 @@ document.querySelector(".highlightBrush").addEventListener("click", () => {
   area.className = "highlighter";
   brushSizeSlide.value = width;
   brushSizeLabel.textContent = width;
+  brushColorInput.value = color;
 });
 
 // 지우개 관련 이벤트 트리거
@@ -78,8 +81,22 @@ document.querySelector("#brush-color").addEventListener("input", (e) => {
   };
 
   const rgb = getRGB(e.target.value.replace("#", ""));
+  const color = rgb.join(",");
 
-  drawBrush(canvas, 36, rgb.join(","), 0.3);
+  const currentBrush = area.classList.value;
+  brushColorInput.value = e.target.value;
+
+  if (currentBrush === "pen") {
+    console.log("일반펜 색 변경 실행");
+    window.WhiteboardConfig.BRUSH_COLOR = color;
+    drawBrush(canvas, window.WhiteboardConfig.BRUSH_WIDTH, color, 1);
+  } else if (currentBrush === "highlighter") {
+    console.log("형광펜 색 변경 실행");
+    window.WhiteboardConfig.HIGHLIGHTER_COLOR = color;
+    drawBrush(canvas, window.WhiteboardConfig.HIGHLIGHTER_WIDTH, color, 0.3);
+  } else {
+    console.log("색을 변경할 도구가 선택되지않음");
+  }
 });
 
 /** PencilBrush 활성화 */

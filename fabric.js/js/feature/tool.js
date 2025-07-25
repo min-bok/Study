@@ -26,8 +26,9 @@ document.querySelector(".tool-wrap .arrow").addEventListener("click", () => {
   createArrowWithPath(canvas);
 });
 
+/** 텍스트 박스 만들기 */
 function createTextbox(canvas) {
-  const text = new fabric.IText("Fabric.JS", {
+  const textbox = new fabric.IText("Fabric.JS", {
     fontFamily: "Pretendard",
     fontSize: 30,
     fill: "blue",
@@ -35,27 +36,33 @@ function createTextbox(canvas) {
     lineHeight: 1.2,
     textAlign: "left",
     charSpacing: 100,
+    backgroundColor: "white",
     opacity: 1,
   });
 
-  const rect = new fabric.Rect({
-    left: text.left - 10,
-    top: text.top - 10,
-    width: text.width + 20,
-    height: text.height + 20,
-    fill: "white",
-    selectable: false,
-  });
+  // const rect = new fabric.Rect({
+  //   left: text.left - 10,
+  //   top: text.top - 10,
+  //   width: text.width + 20,
+  //   height: text.height + 20,
+  //   fill: "white",
+  //   selectable: false,
+  // });
 
-  const group = new fabric.Group([rect, text], {
-    left: Math.random() * 500,
-    top: Math.random() * 500,
-  });
+  // const group = new fabric.Group([rect, text], {
+  //   left: Math.random() * 500,
+  //   top: Math.random() * 500,
+  // });
 
-  group.controls.deleteControl = new fabric.Control(deleteControlStyle); // 객체 삭제 버튼 추가
+  // group.controls.deleteControl = new fabric.Control(deleteControlStyle); // 객체 삭제 버튼 추가
 
-  canvas.add(group);
-  canvas.setActiveObject(group);
+  // canvas.add(group);
+  // canvas.setActiveObject(group);
+
+  textbox.controls.deleteControl = new fabric.Control(deleteControlStyle); // 객체 삭제 버튼 추가
+
+  canvas.add(textbox);
+  canvas.setActiveObject(textbox);
 }
 
 /** 사각형 만들기 */
