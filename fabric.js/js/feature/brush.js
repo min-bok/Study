@@ -1,22 +1,33 @@
 import { deleteControlStyle } from "./move.js";
+import { canvas } from "../index.js";
 
 let CURSOR_SIZE = 50; // eraser tool 크기(default)
 
+// 일반펜 관련 이벤트 트리거
+document.querySelector(".drawBrush").addEventListener("click", () => {
+  drawBrush(canvas);
+});
+
+// 형광펜 관련 이벤트 트리거
+document.querySelector(".highlightBrush").addEventListener("click", () => {
+  drawBrush(canvas, 0.3);
+});
+
 /** PencilBrush 활성화 */
-export const drawBrush = (canvas) => {
-  const _glowShadow = {
-    color: "red",
-    blur: 20,
-    offsetX: 0,
-    offsetY: 0,
-    affectStroke: true,
-  };
+export const drawBrush = (canvas, opacity = 1) => {
+  // const _glowShadow = {
+  //   color: "red",
+  //   blur: 20,
+  //   offsetX: 0,
+  //   offsetY: 0,
+  //   affectStroke: true,
+  // };
 
   const brush = new fabric.PencilBrush(canvas);
   Object.assign(brush, {
-    color: "rgba(255, 0, 0, 0.3)",
+    color: `rgba(0, 0, 0, ${opacity})`,
     width: 10, // 선 두께
-    shadow: _glowShadow,
+    // shadow: _glowShadow,
     strokeLineCap: "round", // 선 끝부분 모양("butt", "round", "square")
     strokeLineJoin: "round", // 선 모서리 처리("miter", "round", "bevel")
   });

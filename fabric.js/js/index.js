@@ -10,6 +10,13 @@ import "./feature/sticker.js";
 import "./feature/tool.js";
 
 export let canvas = new fabric.Canvas("canvas");
+fabric.Image.fromURL(
+  "https://m.media-amazon.com/images/I/81EHEhFXMLL._AC_SL1500_.jpg",
+  function (img) {
+    canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+  },
+  { crossOrigin: "anonymous" } // CORS 우회 필요할 수도 있음
+);
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!canvas) return;
@@ -18,9 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
   mouseWheel(canvas); // 줌인/줌아웃
 
   // brush 관련 이벤트 트리거
-  document.querySelector(".drawBrush").addEventListener("click", () => {
-    drawBrush(canvas);
-  });
+  // document.querySelector(".drawBrush").addEventListener("click", () => {
+  //   drawBrush(canvas);
+  // });
 
   // eraser 관련 이벤트 트리거
   document.querySelector(".eraserBrush").addEventListener("click", () => {

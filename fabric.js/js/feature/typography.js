@@ -9,7 +9,7 @@ export const createTypography = (canvas) => {
     let _fontWeight = 700;
     let _lineHeight = 1.2;
     let _skewX = 0; // -15
-    let _align = "right";
+    let _align = "left";
     const _shadow = {
       color: "red",
       blur: 20, // 번짐 정도 (빛 퍼짐 효과)
@@ -26,7 +26,7 @@ export const createTypography = (canvas) => {
       fontFamily: _fontFamily,
       fontSize: _fontSize,
       fill: _color, // 텍스트 색
-      stroke: "blue", // 텍스트 테두리
+      // stroke: "blue", // 텍스트 테두리
       strokeWidth: 2,
       cornerStyle: "circle",
       padding: 10,
@@ -39,8 +39,8 @@ export const createTypography = (canvas) => {
       textAlign: _align,
       underline: false, // underline
       charSpacing: 100, // 자간
-      opacity: 1, // 투명도
-      backgroundColor: "pink",
+      // opacity: 1, // 투명도
+      // backgroundColor: "pink",
       // shadow: _shadow,
       includeDefaultValues: false, // 텍스트 객체 직렬화시 기본값 포함여부, true: 모든 속성 포함
     });
