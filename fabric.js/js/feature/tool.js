@@ -8,17 +8,20 @@ document.querySelector(".tool-wrap .text-box").addEventListener("click", () => {
 
 document.querySelector(".tool-wrap .rect").addEventListener("click", () => {
   console.log("사각형 버튼 클릭됨");
-  createRect(canvas);
+  const currentDrawMode = "rect";
+  drawObject(canvas, currentDrawMode);
 });
 
 document.querySelector(".tool-wrap .circle").addEventListener("click", () => {
   console.log("원형 버튼 클릭됨");
-  createCircle(canvas);
+  const currentDrawMode = "circle";
+  drawObject(canvas, currentDrawMode);
 });
 
 document.querySelector(".tool-wrap .line").addEventListener("click", () => {
   console.log("선 버튼 클릭됨");
-  createLineWithPath(canvas);
+  // createLineWithPath(canvas);
+  drawPath(canvas);
 });
 
 document.querySelector(".tool-wrap .arrow").addEventListener("click", () => {
@@ -46,56 +49,153 @@ function createTextbox(canvas) {
   canvas.setActiveObject(textbox);
 }
 
-/** 사각형 만들기 */
-function createRect(canvas) {
-  console.log("createRect 실행됨");
-  const rect = new fabric.Rect({
-    left: Math.random() * 500,
-    top: Math.random() * 500,
-    width: 100,
-    height: 100,
-    stroke: "blue",
-    fill: "powderblue",
-    opacity: 1,
+/** 선 그리기 */
+function drawPath(canvas) {
+  console.log("선 그리기 함수 실행됨");
+
+  canvas.off("mouse:down");
+  canvas.off("mouse:move");
+  canvas.off("mouse:up");
+
+  let isDrawing = false;
+  let startX, startY;
+  let path;
+
+  canvas.on("mouse:down", function (opt) {
+    const currentTarget = canvas.getActiveObject();
+    if (currentTarget) return;
+
+    const pointer = canvas.getPointer(opt.e);
+
+    startX = pointer.x;
+    startY = pointer.y;
+    isDrawing = true;
+
+    path = new fabric.Line([startX, startY, startX, startY], {
+      stroke: "black",
+      strokeWidth: 2,
+      selectable: false,
+      evented: false,
+    });
+
+    // path.controls.deleteControl = new fabric.Control(deleteControlStyle);
+    canvas.selection = false;
+
+    canvas.add(path);
   });
 
-  canvas.add(rect);
-  canvas.setActiveObject(rect);
-}
-
-/** 원형 만들기 */
-function createCircle(canvas) {
-  console.log("createCircle 실행됨");
-  const circle = new fabric.Circle({
-    left: Math.random() * 500,
-    top: Math.random() * 500,
-    radius: 50,
-    stroke: "red",
-    fill: "pink",
-    opacity: 1,
-  });
-
-  canvas.add(circle);
-  canvas.setActiveObject(circle);
-}
-
-/** 선 만들기 */
-function createLineWithPath(canvas) {
-  const linePath = new fabric.Path(
-    `
-  M 50 50 
-  L 200 50
-`,
-    {
-      stroke: "red",
-      strokeWidth: 3,
-      fill: "", // 채우지 않음
-      selectable: true,
+  canvas.on("mouse:move", function (opt) {
+    if (!isDrawing) {
+      console.log("선그리는중이야...!!");
+      return;
     }
-  );
 
-  canvas.add(linePath);
-  canvas.setActiveObject(linePath);
+    const pointer = canvas.getPointer(opt.e);
+    const endX = pointer.x;
+    const endY = pointer.y;
+
+    path.set({ x2: endX, y2: endY });
+    canvas.requestRenderAll();
+  });
+
+  canvas.on("mouse:up", function () {
+    isDrawing = false;
+    path.set({ selectable: true, evented: true });
+    canvas.selection = true;
+    canvas.requestRenderAll();
+    canvas.setActiveObject(path);
+  });
+}
+
+/** 드래그로 사각형, 원형 그리기 */
+function drawObject(canvas, type) {
+  canvas.off("mouse:down");
+  canvas.off("mouse:move");
+  canvas.off("mouse:up");
+
+  let isDrawing = false;
+  let startX, startY;
+  let object;
+
+  canvas.on("mouse:down", function (opt) {
+    const currentTarget = canvas.getActiveObject();
+    if (currentTarget) return;
+
+    const pointer = canvas.getPointer(opt.e);
+    isDrawing = true;
+
+    startX = pointer.x;
+    startY = pointer.y;
+
+    switch (type) {
+      case "rect":
+        object = new fabric.Rect({
+          left: startX,
+          top: startY,
+          width: 0,
+          height: 0,
+          stroke: "rgba(0, 0, 0, 1)",
+          fill: "transparent",
+          opacity: 0.5,
+          strokeWidth: 2,
+          selectable: false,
+          evented: false,
+        });
+        break;
+      case "circle":
+        object = new fabric.Circle({
+          left: startX,
+          top: startY,
+          radius: 1,
+          stroke: "rgba(0, 0, 0, 1)",
+          fill: "transparent",
+          opacity: 0.5,
+          strokeWidth: 2,
+          selectable: false,
+          evented: false,
+        });
+        break;
+    }
+
+    object.controls.deleteControl = new fabric.Control(deleteControlStyle);
+
+    canvas.add(object);
+  });
+
+  canvas.on("mouse:move", function (opt) {
+    if (!isDrawing) return;
+
+    const pointer = canvas.getPointer(opt.e);
+
+    const width = pointer.x - startX;
+    const height = pointer.y - startY;
+    const radius = Math.sqrt(width * width + height * height) / 2;
+
+    switch (type) {
+      case "rect":
+        object.set({
+          width: Math.abs(width),
+          height: Math.abs(height),
+          left: width < 0 ? pointer.x : startX,
+          top: height < 0 ? pointer.y : startY,
+        });
+        break;
+      case "circle":
+        object.set({
+          left: width < 0 ? pointer.x : startX,
+          top: height < 0 ? pointer.y : startY,
+          radius: radius,
+        });
+        break;
+    }
+
+    canvas.setActiveObject(object);
+  });
+
+  canvas.on("mouse:up", function () {
+    isDrawing = false;
+    object.set({ selectable: true, evented: true });
+  });
 }
 
 /** 화살표 만들기 */
