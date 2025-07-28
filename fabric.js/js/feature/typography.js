@@ -51,12 +51,23 @@ export const createTypography = (canvas) => {
     // canvas.centerObject(text); // 가운데 정렬
     canvas.setActiveObject(text);
 
-    /** 서체 변경 */
-    document.getElementById("fontSelector").addEventListener("change", (e) => {
+    // 텍스트 서체 변경
+    document.getElementById("font-selector").addEventListener("change", (e) => {
       const font = e.target.value;
       const active = canvas.getActiveObject();
       if (active && active.type === "i-text") {
         active.set("fontFamily", font);
+        canvas.fire("object:modified", { target: active });
+        canvas.requestRenderAll();
+      }
+    });
+
+    // 텍스트 색 변경
+    document.getElementById("text-color").addEventListener("input", (e) => {
+      const color = e.target.value;
+      const active = canvas.getActiveObject();
+      if (active && active.type === "i-text") {
+        active.set("fill", color);
         canvas.fire("object:modified", { target: active });
         canvas.requestRenderAll();
       }

@@ -40,25 +40,6 @@ function createTextbox(canvas) {
     opacity: 1,
   });
 
-  // const rect = new fabric.Rect({
-  //   left: text.left - 10,
-  //   top: text.top - 10,
-  //   width: text.width + 20,
-  //   height: text.height + 20,
-  //   fill: "white",
-  //   selectable: false,
-  // });
-
-  // const group = new fabric.Group([rect, text], {
-  //   left: Math.random() * 500,
-  //   top: Math.random() * 500,
-  // });
-
-  // group.controls.deleteControl = new fabric.Control(deleteControlStyle); // 객체 삭제 버튼 추가
-
-  // canvas.add(group);
-  // canvas.setActiveObject(group);
-
   textbox.controls.deleteControl = new fabric.Control(deleteControlStyle); // 객체 삭제 버튼 추가
 
   canvas.add(textbox);
