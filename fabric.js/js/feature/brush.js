@@ -38,6 +38,17 @@ document.querySelector(".eraserBrush").addEventListener("click", () => {
   brushSizeLabel.textContent = width;
 });
 
+// 지우개 외에 다른 도구 선택시 커스텀 커서 삭제
+document.querySelectorAll("#wrap .tool-btn").forEach((button) => {
+  button.addEventListener("click", (e) => {
+    console.log("data-id", e.target.dataset.id);
+    if (e.target.dataset.id === "eraser") {
+    } else {
+      removeEraserCursor();
+    }
+  });
+});
+
 // 펜, 형광펜, 지우개 크기 조절
 brushSizeSlide.addEventListener("change", (e) => {
   const currentBrush = area.classList.value;
@@ -168,6 +179,14 @@ function createEraserCursor(width) {
   cursor.style.pointerEvents = "none";
   cursor.style.zIndex = 10;
   return cursor;
+}
+
+/** 지우개 도구 커스텀 커서 삭제 */
+function removeEraserCursor() {
+  const eraser = document.querySelector(".eraser-cursor");
+  if (!eraser) return;
+  eraser.remove();
+  console.log("지우개 커스텀 커서 삭제 함수 실행", eraser);
 }
 
 /** 지우개 도구 커스텀 커서 위치 조정 */

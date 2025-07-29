@@ -26,20 +26,20 @@
 
     <div id="wrap" class="panel">
       <div class="select-wrap">
-        <button class="select">선택</button>
+        <button class="select tool-btn" data-id="select">선택</button>
       </div>
       <div class="brush-wrap">
-        <button class="drawBrush">일반펜</button>
-        <button class="highlightBrush">형광펜</button>
-        <button class="eraserBrush">지우개</button>
+        <button class="drawBrush tool-btn" data-id="pen">일반펜</button>
+        <button class="highlightBrush tool-btn" data-id="highlight">형광펜</button>
+        <button class="eraserBrush tool-btn" data-id="eraser">지우개</button>
+        <button class="canvas-clear tool-btn" data-id="trash">전체삭제</button>
         <input type="range" name="brush-size" id="brush-size" value="4" min="1" max="100" />
         <label for="brush-size" class="brush-size-label">4</label>
         <input type="color" name="brush-color" id="brush-color" >
-        <button class="canvas-clear">전체삭제</button>
       </div>
   
       <div class="text-wrap">
-        <button class="loadTypography">text 추가하기</button>
+        <button class="loadTypography tool-btn" data-id="text">text 추가하기</button>
         <select id="font-selector">
           <option value="serif">Nanum Myeongjo</option>
           <option value="sans-serif" selected>Pretendard</option>
@@ -49,45 +49,45 @@
       </div>
   
       <div class="tool-wrap">
-        <button class="text-box">텍스트박스</button>
-        <button class="rect">사각형</button>
-        <button class="circle">원형</button>
-        <button class="line">선</button>
-        <button class="curve">곡선</button>
+        <button class="text-box tool-btn" data-id="textbox">텍스트박스</button>
+        <button class="rect tool-btn" data-id="rect">사각형</button>
+        <button class="circle tool-btn" data-id="circle">원형</button>
+        <button class="line tool-btn" data-id="line">선</button>
+        <button class="curve tool-btn" data-id="curve">곡선</button>
         <!-- <button class="arrow">화살표</button> -->
       </div>
   
       <div class="sticker-wrap">
         <div class="sticker-list">
-          <button class="sticker" id="sticker-num1" value="num1"></button>
-          <button class="sticker" id="sticker-num2" value="num2"></button>
-          <button class="sticker" id="sticker-num3" value="num3"></button>
+          <button class="sticker tool-btn" data-id="sticker-num1" id="sticker-num1" value="num1"></button>
+          <button class="sticker tool-btn" data-id="sticker-num2" id="sticker-num2" value="num2"></button>
+          <button class="sticker tool-btn" data-id="sticker-num3" id="sticker-num3" value="num3"></button>
         </div>
         <label for="sticker-color">스티커 컬러 변경</label>
         <input type="color" name="sticker-color" id="sticker-color" />
       </div>
   
       <div class="image-wrap">
-        <label for="load-image">이미지 삽입</label>
+        <label for="load-image" class="tool-btn" data-id="image">이미지 삽입</label>
         <input type="file" name="load-image" id="load-image" multiple />
-        <button class="image-crop">crop</button>
+        <button class="image-crop tool-btn" data-id="image-crop">crop</button>
       </div>
   
       <div class="move-wrap">
-        <button class="hand-tool">Hand Tool</button>
-        <button class="move">객체이동</button>
+        <button class="hand-tool tool-btn" data-id="hand-tool">Hand Tool</button>
+        <button class="move tool-btn" data-id="move">객체이동</button>
       </div>
   
       <div class="group-wrap">
-        <button class="grouping">그룹화</button>
-        <button class="ungrouping">그룹화 해제</button>
+        <button class="grouping tool-btn" data-id="group">그룹화</button>
+        <button class="ungrouping tool-btn" data-id="ungroup">그룹화 해제</button>
       </div>
   
       <div class="history-wrap">
-        <button class="history-undo">undo</button>
-        <button class="history-redo">redo</button>
-        <button class="saveCanvas">저장</button>
-        <button class="getSaveedState">저장된 캔버스 불러오기</button>
+        <button class="history-undo tool-btn" data-id="undo">undo</button>
+        <button class="history-redo tool-btn" data-id="redo">redo</button>
+        <button class="saveCanvas tool-btn" data-id="save">저장</button>
+        <button class="getSaveedState tool-btn" data-id="load">저장된 캔버스 불러오기</button>
       </div>
     </div>
   </body>
