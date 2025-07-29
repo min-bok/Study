@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document
   .querySelector("#wrap .select-wrap .select")
   .addEventListener("click", () => {
-    if (area.className) {
+    if (area.className === "select") {
       wrapper.classList.remove("hidden");
       area.classList.remove("select");
       canvas.setWidth(wrapper.clientWidth);
