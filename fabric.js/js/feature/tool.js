@@ -24,10 +24,97 @@ document.querySelector(".tool-wrap .line").addEventListener("click", () => {
   drawPath(canvas);
 });
 
-document.querySelector(".tool-wrap .arrow").addEventListener("click", () => {
-  console.log("화살표 버튼 클릭됨");
-  createArrowWithPath(canvas);
+document.querySelector(".tool-wrap .curve").addEventListener("click", () => {
+  console.log("곡선 버튼 클릭됨");
+  drawCurve(canvas);
 });
+
+/** 베지어 곡선으로 변환 */
+function catmullRom2bezier(points) {
+  console.log("points", points.length);
+  if (points.length === 0) {
+    console.log("아직 그리기 시작하지않음");
+    return;
+  }
+  const d = [`M ${points[0].x} ${points[0].y}`];
+
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[i - 1] || points[i];
+    const p1 = points[i];
+    const p2 = points[i + 1];
+    const p3 = points[i + 2] || p2;
+
+    const cp1x = p1.x + (p2.x - p0.x) / 6;
+    const cp1y = p1.y + (p2.y - p0.y) / 6;
+    const cp2x = p2.x - (p3.x - p1.x) / 6;
+    const cp2y = p2.y - (p3.y - p1.y) / 6;
+
+    d.push(`C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`);
+  }
+
+  return d.join(" ");
+}
+
+/** 곡선 그리기 */
+function drawCurve(canvas) {
+  canvas.off("mouse:down");
+  canvas.off("mouse:dblclick");
+
+  let points = [];
+  let curve = null;
+
+  canvas.on("mouse:down", function (opt) {
+    const currentTarget = canvas.getActiveObject();
+    if (currentTarget) return;
+
+    canvas.selection = false;
+
+    const pointer = canvas.getPointer(opt.e);
+    const point = { x: pointer.x, y: pointer.y };
+    points.push(point);
+
+    if (points.length >= 2) {
+      const pathData = catmullRom2bezier(points);
+
+      // 이전 curve 제거 후 새로 그리기
+      if (curve) {
+        canvas.remove(curve);
+      }
+
+      curve = new fabric.Path(pathData, {
+        stroke: "blue",
+        strokeWidth: 2,
+        fill: "",
+        selectable: false,
+        objectCaching: false,
+        evented: false,
+      });
+
+      canvas.add(curve);
+      canvas.requestRenderAll();
+    }
+  });
+
+  canvas.on("mouse:dblclick", function () {
+    if (curve) {
+      curve.set({
+        selectable: true,
+        evented: true,
+      });
+
+      curve.controls.deleteControl = new fabric.Control(deleteControlStyle);
+
+      curve.setCoords(); // 핸들 정확히 갱신
+      canvas.setActiveObject(curve);
+      canvas.requestRenderAll();
+    }
+
+    // 상태 초기화
+    points = [];
+    curve = null;
+    canvas.selection = true;
+  });
+}
 
 /** 텍스트 박스 만들기 */
 function createTextbox(canvas) {
@@ -49,7 +136,7 @@ function createTextbox(canvas) {
   canvas.setActiveObject(textbox);
 }
 
-/** 선 그리기 */
+/** 직선 그리기 */
 function drawPath(canvas) {
   console.log("선 그리기 함수 실행됨");
 
@@ -78,10 +165,9 @@ function drawPath(canvas) {
       evented: false,
     });
 
-    // path.controls.deleteControl = new fabric.Control(deleteControlStyle);
     canvas.selection = false;
-
     canvas.add(path);
+    // path.controls.deleteControl = new fabric.Control(deleteControlStyle);
   });
 
   canvas.on("mouse:move", function (opt) {
@@ -199,25 +285,25 @@ function drawObject(canvas, type) {
 }
 
 /** 화살표 만들기 */
-function createArrowWithPath(canvas) {
-  const pathData = `
-  M 0 0 
-  L 100 0     <!-- 직선 화살대 -->
-  M 100 0 
-  L 90 -10    <!-- 화살촉 왼쪽 -->
-  M 100 0 
-  L 90 10     <!-- 화살촉 오른쪽 -->
-`;
+// function createArrowWithPath(canvas) {
+//   const pathData = `
+//   M 0 0
+//   L 100 0     <!-- 직선 화살대 -->
+//   M 100 0
+//   L 90 -10    <!-- 화살촉 왼쪽 -->
+//   M 100 0
+//   L 90 10     <!-- 화살촉 오른쪽 -->
+// `;
 
-  const arrow = new fabric.Path(pathData, {
-    left: 100,
-    top: 100,
-    stroke: "black",
-    strokeWidth: 3,
-    fill: "", // 채우지 않음
-    selectable: true,
-  });
+//   const arrow = new fabric.Path(pathData, {
+//     left: 100,
+//     top: 100,
+//     stroke: "black",
+//     strokeWidth: 3,
+//     fill: "", // 채우지 않음
+//     selectable: true,
+//   });
 
-  canvas.add(arrow);
-  canvas.setActiveObject(arrow);
-}
+//   canvas.add(arrow);
+//   canvas.setActiveObject(arrow);
+// }
