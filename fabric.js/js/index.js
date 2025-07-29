@@ -1,4 +1,5 @@
 import "./saveData.js";
+import "./feature/select.js";
 import { createTypography } from "./feature/typography.js";
 import { copy, paste } from "./feature/copy.js";
 import { grouping, ungrounping } from "./feature/group.js";
@@ -11,13 +12,6 @@ import "./feature/sticker.js";
 import "./feature/tool.js";
 
 export let canvas = new fabric.Canvas("canvas");
-fabric.Image.fromURL(
-  "https://m.media-amazon.com/images/I/81EHEhFXMLL._AC_SL1500_.jpg",
-  function (img) {
-    canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
-  },
-  { crossOrigin: "anonymous" } // CORS 우회 필요할 수도 있음
-);
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!canvas) return;
