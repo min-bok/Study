@@ -76,4 +76,35 @@ document.addEventListener("DOMContentLoaded", () => {
       canvas.renderAll();
     });
   });
+
+  // 이미지로 다운로드
+  document.querySelector(".download-wrap").addEventListener("click", () => {
+    console.log("이미지로 다운로드 클릭", canvas);
+    // canvas.lowerCanvasEl.toBlob(function (blob) {
+    //   console.log("blob", blob);
+    //   // const url = URL.createObjectURL(blob);
+    //   // const a = document.createElement("a");
+    //   // a.href = url;
+    //   // a.download = "canvas-image.png";
+    //   // a.click();
+    //   // URL.revokeObjectURL(url);
+    // });
+
+    const target = document.querySelector("body");
+
+    html2canvas(target, {
+      useCORS: true, // 이미지가 크로스 도메인일 경우 필요
+      backgroundColor: null, // 배경 투명하게
+    }).then((canvas) => {
+      // canvas -> blob 변환
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "screenshot.png";
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    });
+  });
 });
