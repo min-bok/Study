@@ -79,22 +79,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 이미지로 다운로드
   document.querySelector(".download-wrap").addEventListener("click", () => {
-    console.log("이미지로 다운로드 클릭", canvas);
-    // canvas.lowerCanvasEl.toBlob(function (blob) {
-    //   console.log("blob", blob);
-    //   // const url = URL.createObjectURL(blob);
-    //   // const a = document.createElement("a");
-    //   // a.href = url;
-    //   // a.download = "canvas-image.png";
-    //   // a.click();
-    //   // URL.revokeObjectURL(url);
-    // });
-
+    console.log("이미지로 다운로드 클릭");
     const target = document.querySelector("body");
 
     html2canvas(target, {
-      useCORS: true, // 이미지가 크로스 도메인일 경우 필요
-      backgroundColor: null, // 배경 투명하게
+      useCORS: true,
+      backgroundColor: null,
     }).then((canvas) => {
       // canvas -> blob 변환
       canvas.toBlob((blob) => {
