@@ -1,14 +1,15 @@
 import "./saveData.js";
 import "./feature/select.js";
+import "./feature/typography.js";
 import { createTypography } from "./feature/typography.js";
 import { copy, paste } from "./feature/copy.js";
 import { grouping, ungrounping } from "./feature/group.js";
 import { initHistory } from "./feature/historyManager.js";
-import { mouseWheel, handleHandTool } from "./feature/move.js";
+// import { mouseWheel, handleHandTool } from "./feature/move.js";
 import "./feature/brush.js";
 import "./feature/image.js";
 import "./feature/historyManager.js";
-import "./feature/sticker.js";
+// import "./feature/sticker.js";
 import "./feature/tool.js";
 
 export let canvas = new fabric.Canvas("canvas");
@@ -17,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!canvas) return;
 
   initHistory(canvas); // history 관련: redo, undo
-  mouseWheel(canvas); // 줌인/줌아웃
+  // mouseWheel(canvas); // 줌인/줌아웃
 
   // typography 관련 이벤트 트리거
   document.querySelector(".loadTypography").addEventListener("click", () => {
@@ -30,9 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Hand Tool 관련 이벤트 트리거
-  document.querySelector(".hand-tool").addEventListener("click", () => {
-    handleHandTool(canvas);
-  });
+  // document.querySelector(".hand-tool").addEventListener("click", () => {
+  //   handleHandTool(canvas);
+  // });
 
   // 전체 삭제 기능 활성화
   document.querySelector(".canvas-clear").addEventListener("click", () => {
@@ -78,23 +79,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 이미지로 다운로드
-  document.querySelector(".download-wrap").addEventListener("click", () => {
-    console.log("이미지로 다운로드 클릭");
-    const target = document.querySelector("body");
+  // document.querySelector(".download-wrap").addEventListener("click", () => {
+  //   console.log("이미지로 다운로드 클릭");
+  //   const target = document.querySelector("body");
 
-    html2canvas(target, {
-      useCORS: true,
-      backgroundColor: null,
-    }).then((canvas) => {
-      // canvas -> blob 변환
-      canvas.toBlob((blob) => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "screenshot.png";
-        a.click();
-        URL.revokeObjectURL(url);
-      });
-    });
-  });
+  //   html2canvas(target, {
+  //     useCORS: true,
+  //     backgroundColor: null,
+  //   }).then((canvas) => {
+  //     // canvas -> blob 변환
+  //     canvas.toBlob((blob) => {
+  //       const url = URL.createObjectURL(blob);
+  //       const a = document.createElement("a");
+  //       a.href = url;
+  //       a.download = "screenshot.png";
+  //       a.click();
+  //       URL.revokeObjectURL(url);
+  //     });
+  //   });
+  // });
 });

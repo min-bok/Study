@@ -46,6 +46,12 @@
           <option value="cursive">Poor Story</option>
         </select>
         <input type="color" name="text-color" id="text-color">
+
+        <select id="font-weight-select">
+          <option value="200">얇게</option>
+          <option value="400">보통</option>
+          <option value="700">굵게</option>
+        </select>
       </div>
   
       <div class="tool-wrap">
@@ -53,11 +59,22 @@
         <button class="rect tool-btn" data-id="rect">사각형</button>
         <button class="circle tool-btn" data-id="circle">원형</button>
         <button class="line tool-btn" data-id="line">선</button>
-        <button class="curve tool-btn" data-id="curve">곡선</button>
-        <!-- <button class="arrow">화살표</button> -->
+        <!-- <button class="curve tool-btn" data-id="curve">곡선</button> -->
+        <button class="arrow tool-btn"  data-id="arrow">화살표</button>
+
+        <div class="tool-sub-wrap">
+          <input type="color" name="tool-fill-color" id="tool-fill-color" value="#d9d9d9">
+          <input type="number" name="tool-fill-opacity" id="tool-fill-opacity" value="100" min="0" max="100" step="10">
+          <input type="color" name="tool-stroke-color" id="tool-stroke-color" value="#222222">
+          <input type="number" name="tool-stroke-weight" id="tool-stroke-weight" value="3" min="0" max="1" step="1">
+          <select id="tool-stroke-style">
+            <option value="solid">Solid</option>
+            <option value="dashed">Dashed</option>
+          </select>
+        </div>
       </div>
   
-      <div class="sticker-wrap">
+      <!-- <div class="sticker-wrap">
         <div class="sticker-list">
           <button class="sticker tool-btn" data-id="sticker-num1" id="sticker-num1" value="num1"></button>
           <button class="sticker tool-btn" data-id="sticker-num2" id="sticker-num2" value="num2"></button>
@@ -65,7 +82,7 @@
         </div>
         <label for="sticker-color">스티커 컬러 변경</label>
         <input type="color" name="sticker-color" id="sticker-color" />
-      </div>
+      </div> -->
   
       <div class="image-wrap">
         <label for="load-image" class="tool-btn" data-id="image">이미지 삽입</label>
@@ -74,7 +91,7 @@
       </div>
   
       <div class="move-wrap">
-        <button class="hand-tool tool-btn" data-id="hand-tool">Hand Tool</button>
+        <!-- <button class="hand-tool tool-btn" data-id="hand-tool">Hand Tool</button> -->
         <button class="move tool-btn" data-id="move">객체이동</button>
       </div>
   
@@ -90,9 +107,9 @@
         <button class="getSaveedState tool-btn" data-id="load">저장된 캔버스 불러오기</button>
       </div>
 
-      <div class="download-wrap">
+      <!-- <div class="download-wrap">
         <button class="blob-download">이미지 다운로드</button>
-      </div>
+      </div> -->
     </div>
   </body>
   <script src="./js/fabric_v5.js"></script>

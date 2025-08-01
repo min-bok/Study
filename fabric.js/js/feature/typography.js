@@ -1,4 +1,16 @@
+import { canvas } from "../index.js";
 import { deleteControlStyle } from "./move.js";
+
+document.querySelector("#font-weight-select").addEventListener("input", (e) => {
+  const text = canvas.getActiveObject();
+
+  if (!text) {
+    console.log("선택된 요소 없음");
+    return;
+  }
+  console.log("현재 선택된 요소 type:", text.type);
+  console.log("폰트 굵게 설정", text);
+});
 
 export const createTypography = (canvas) => {
   console.log("createTypography 함수 실행됨");

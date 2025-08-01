@@ -120,8 +120,8 @@ export const drawBrush = (canvas, width, color, opacity = 1) => {
   //   affectStroke: true,
   // };
 
-  console.log("draw", width, color, opacity);
-  console.log(`rgba(${color}, ${opacity})`);
+  // console.log("draw", width, color, opacity);
+  // console.log(`rgba(${color}, ${opacity})`);
 
   const brush = new fabric.PencilBrush(canvas);
   Object.assign(brush, {

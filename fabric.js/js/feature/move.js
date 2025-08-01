@@ -47,45 +47,45 @@ export const deleteControlStyle = {
 };
 
 /** 마우스 휠로 줌 인, 줌 아웃 */
-export const mouseWheel = (canvas) => {
-  canvas.on("mouse:wheel", (opt) => {
-    const delta = opt.e.deltaY;
-    let zoom = canvas.getZoom();
-    zoom *= 0.999 ** delta;
+// export const mouseWheel = (canvas) => {
+//   canvas.on("mouse:wheel", (opt) => {
+//     const delta = opt.e.deltaY;
+//     let zoom = canvas.getZoom();
+//     zoom *= 0.999 ** delta;
 
-    // 줌 범위 제한
-    if (zoom > 20) zoom = 20;
-    if (zoom < 0.01) zoom = 0.01;
+//     // 줌 범위 제한
+//     if (zoom > 20) zoom = 20;
+//     if (zoom < 0.01) zoom = 0.01;
 
-    canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+//     canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
 
-    opt.e.preventDefault();
-    opt.e.stopPropagation();
-  });
-};
+//     opt.e.preventDefault();
+//     opt.e.stopPropagation();
+//   });
+// };
 
 /** 마우스를 이용한 화면 이동 기능 */
-export const handleHandTool = (canvas) => {
-  console.log("handleHandTool 함수 실행됨");
-  canvas.isDrawingMode = false;
-  canvas.selection = false;
-  canvas.defaultCursor = "move";
+// export const handleHandTool = (canvas) => {
+//   console.log("handleHandTool 함수 실행됨");
+//   canvas.isDrawingMode = false;
+//   canvas.selection = false;
+//   canvas.defaultCursor = "move";
 
-  let panning = false;
+//   let panning = false;
 
-  const handleMouseDown = () => {
-    panning = true;
-  };
-  const handleMouseMove = (event) => {
-    if (panning) {
-      const delta = new fabric.Point(event.e.movementX, event.e.movementY);
-      canvas.relativePan(delta);
-    }
-  };
-  const handleMouseUp = () => {
-    panning = false;
-  };
-  canvas.on("mouse:down", handleMouseDown);
-  canvas.on("mouse:move", handleMouseMove);
-  canvas.on("mouse:up", handleMouseUp);
-};
+//   const handleMouseDown = () => {
+//     panning = true;
+//   };
+//   const handleMouseMove = (event) => {
+//     if (panning) {
+//       const delta = new fabric.Point(event.e.movementX, event.e.movementY);
+//       canvas.relativePan(delta);
+//     }
+//   };
+//   const handleMouseUp = () => {
+//     panning = false;
+//   };
+//   canvas.on("mouse:down", handleMouseDown);
+//   canvas.on("mouse:move", handleMouseMove);
+//   canvas.on("mouse:up", handleMouseUp);
+// };
