@@ -194,7 +194,7 @@ function createTextbox(canvas) {
     fontFamily: "Pretendard",
     fontSize: 30,
     fill: "blue",
-    fontWeight: 700,
+    fontWeight: 400,
     lineHeight: 1.2,
     textAlign: "left",
     charSpacing: 100,

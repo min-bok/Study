@@ -1,60 +1,65 @@
 import { canvas } from "../index.js";
 import { deleteControlStyle } from "./move.js";
 
-document.querySelector("#font-weight-select").addEventListener("input", (e) => {
+// 텍스트 굵기 변경 (200, 400, 700)
+document
+  .querySelector("#font-weight-select")
+  .addEventListener("change", (e) => {
+    const text = canvas.getActiveObject();
+
+    if (!text) return;
+
+    if (text.type === "i-text") {
+      text.set("fontWeight", e.target.value);
+      canvas.requestRenderAll();
+    }
+  });
+
+// 텍스트 정렬 변경 (left, center, right)
+document.querySelector("#font-align").addEventListener("change", (e) => {
   const text = canvas.getActiveObject();
 
-  if (!text) {
-    console.log("선택된 요소 없음");
-    return;
+  if (!text) return;
+  if (text.type === "i-text") {
+    text.set("textAlign", e.target.value);
+    canvas.requestRenderAll();
   }
-  console.log("현재 선택된 요소 type:", text.type);
-  console.log("폰트 굵게 설정", text);
 });
 
 export const createTypography = (canvas) => {
   console.log("createTypography 함수 실행됨");
   document.fonts.ready.then(() => {
-    let _fontSize = 30;
-    let _fontFamily = "Pretendard"; // Nanum Myeongjo, Pretendard, Poor Story
-    let _color = "red";
-    let _fontWeight = 700;
-    let _lineHeight = 1.2;
-    let _skewX = 0; // -15
-    let _align = "left";
-    const _shadow = {
-      color: "red",
-      blur: 20, // 번짐 정도 (빛 퍼짐 효과)
-      offsetX: 0, // 좌우로 안 밀리게
-      offsetY: 0,
-      affectStroke: true, // stroke에도 그림자 적용 (fabric 5 이상 권장)
-    };
-
     canvas.isDrawingMode = false;
 
     const text = new fabric.IText("Fabric.JS", {
       left: Math.random() * 500,
       top: Math.random() * 500,
-      fontFamily: _fontFamily,
-      fontSize: _fontSize,
-      fill: _color, // 텍스트 색
-      // stroke: "blue", // 텍스트 테두리
+      fontFamily: "Pretendard",
+      fontSize: 30,
+      fill: "#222222", // 텍스트 색
       strokeWidth: 2,
       cornerStyle: "circle",
-      padding: 10,
-      fontWeight: _fontWeight, // 필요한가
+      fontWeight: 400,
       transparentCorners: false,
-      borderColor: "orange",
+      borderColor: "blue",
       borderDashArray: [3, 1, 3],
-      skewX: _skewX, // 이탤릭체
-      lineHeight: _lineHeight, // 행간
-      textAlign: _align,
-      underline: false, // underline
-      charSpacing: 100, // 자간
+      textAlign: "left",
+      includeDefaultValues: false, // 텍스트 객체 직렬화시 기본값 포함여부, true: 모든 속성 포함
+      // stroke: "blue", // 텍스트 테두리
+      // padding: 10,
+      // skewX: -15, // 이탤릭체
+      // lineHeight: 1.2, // 행간
+      // underline: false, // underline
+      // charSpacing: 100, // 자간
       // opacity: 1, // 투명도
       // backgroundColor: "pink",
-      // shadow: _shadow,
-      includeDefaultValues: false, // 텍스트 객체 직렬화시 기본값 포함여부, true: 모든 속성 포함
+      // shadow: {
+      //   color: "red",
+      //   blur: 20, // 번짐 정도 (빛 퍼짐 효과)
+      //   offsetX: 0, // 좌우로 안 밀리게
+      //   offsetY: 0,
+      //   affectStroke: true, // stroke에도 그림자 적용 (fabric 5 이상 권장)
+      // },
     });
 
     text.controls.deleteControl = new fabric.Control(deleteControlStyle); // 객체 삭제 버튼 추가
