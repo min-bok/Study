@@ -139,6 +139,14 @@ export const drawBrush = (canvas, width, color, opacity = 1) => {
   canvas.on("path:created", (e) => {
     const path = e.path;
     path.controls.deleteControl = new fabric.Control(deleteControlStyle);
+    if (opacity === 1) {
+      console.log("opacity == 1");
+      path.type = "pencil";
+    } else {
+      console.log("opacity !== 1");
+      path.type = "path";
+    }
+
     canvas.requestRenderAll();
   });
 };

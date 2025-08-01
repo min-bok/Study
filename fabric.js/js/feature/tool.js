@@ -32,6 +32,7 @@ document.querySelector(".tool-wrap .arrow").addEventListener("click", () => {
 // 도구 객체 fill 색상 변경
 document.querySelector("#tool-fill-color").addEventListener("input", (e) => {
   const target = canvas.getActiveObject();
+  if (!target) return;
 
   if (target && target.type === "strokeable") {
     target.set("fill", e.target.value);
@@ -45,6 +46,7 @@ document.querySelector("#tool-fill-color").addEventListener("input", (e) => {
 // 도구 객체 opacity 변경
 document.querySelector("#tool-fill-opacity").addEventListener("change", (e) => {
   const target = canvas.getActiveObject();
+  if (!target) return;
   if (target && target.type === "strokeable") {
     target.set("opacity", e.target.value / 100);
     canvas.requestRenderAll();
@@ -53,9 +55,8 @@ document.querySelector("#tool-fill-opacity").addEventListener("change", (e) => {
 
 // 도구 객체 stroke 색상 변경
 document.querySelector("#tool-stroke-color").addEventListener("input", (e) => {
-  console.log("현재 stroke 색상:", e.target.value);
   const target = canvas.getActiveObject();
-  console.log(111, target.type);
+  if (!target) return;
   if (target && target.type === "strokeable") {
     target.set("stroke", e.target.value);
     canvas.requestRenderAll();
@@ -69,8 +70,8 @@ document.querySelector("#tool-stroke-color").addEventListener("input", (e) => {
 document
   .querySelector("#tool-stroke-weight")
   .addEventListener("change", (e) => {
-    console.log("현재 stroke width:", e.target.value);
     const target = canvas.getActiveObject();
+    if (!target) return;
     if (target && target.type === "strokeable") {
       target.set("strokeWidth", e.target.value);
       canvas.requestRenderAll();
@@ -79,11 +80,11 @@ document
 
 // 도구 객체 stroke style 설정
 document.querySelector("#tool-stroke-style").addEventListener("change", (e) => {
-  console.log("현재 stroke 스타일:", e.target.value);
   const target = canvas.getActiveObject();
 
-  console.log(5555, target.type);
-  if (target && target.type === "strokeable") {
+  if (!target) return;
+
+  if ((target && target.type === "strokeable") || target.type === "pencil") {
     if (e.target.value === "dashed") {
       // dashed
       target.set("strokeDashArray", [10, 12]);
